@@ -20,7 +20,7 @@ int main(void)
 	
 	while (1)
 	{
-		//LED_Control();
+		////LED_Control();
 	}
 }
 
