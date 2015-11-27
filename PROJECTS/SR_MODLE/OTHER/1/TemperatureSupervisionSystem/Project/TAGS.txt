@@ -343,7 +343,7 @@ CLK_ClockSwitchCmd	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	357;"	prototype	sig
 CLK_ClockSwitchCmd	..\stm8s_stdperiph_driver\src\stm8s_clk.c	213;"	function	signature:(FunctionalState NewState)
 CLK_ClockSwitchConfig	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	361;"	prototype	signature:(CLK_SwitchMode_TypeDef CLK_SwitchMode, CLK_Source_TypeDef CLK_NewClock, FunctionalState ITState, CLK_CurrentClockState_TypeDef CLK_CurrentClockState)
 CLK_ClockSwitchConfig	..\stm8s_stdperiph_driver\src\stm8s_clk.c	309;"	function	signature:(CLK_SwitchMode_TypeDef CLK_SwitchMode, CLK_Source_TypeDef CLK_NewClock, FunctionalState ITState, CLK_CurrentClockState_TypeDef CLK_CurrentClockState)
-CLK_Config	main.c	36;"	function	signature:(void)
+CLK_Config	main.c	38;"	function	signature:(void)
 CLK_Config	main.c	6;"	prototype	file:	signature:(void)
 CLK_CurrentClockState_TypeDef	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	56;"	typedef	typeref:enum:__anon15
 CLK_DeInit	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	352;"	prototype	signature:(void)
@@ -769,7 +769,7 @@ GPIOI	..\stm8s_stdperiph_driver\inc\stm8s.h	2646;"	macro
 GPIOI_BaseAddress	..\stm8s_stdperiph_driver\inc\stm8s.h	2564;"	macro
 GPIO_CR1_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	280;"	macro
 GPIO_CR2_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	281;"	macro
-GPIO_Config_SystemOn	main.c	27;"	function	signature:(void)
+GPIO_Config_SystemOn	main.c	29;"	function	signature:(void)
 GPIO_Config_SystemOn	main.c	5;"	prototype	file:	signature:(void)
 GPIO_DDR_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	279;"	macro
 GPIO_DeInit	..\stm8s_stdperiph_driver\inc\stm8s_gpio.h	139;"	prototype	signature:(GPIO_TypeDef* GPIOx)
@@ -906,6 +906,7 @@ INTERRUPT_HANDLER	..\stm8s_stdperiph_driver\inc\stm8s.h	2759;"	macro
 INTERRUPT_HANDLER_TRAP	..\stm8s_stdperiph_driver\inc\stm8s.h	2748;"	macro
 INTERRUPT_HANDLER_TRAP	..\stm8s_stdperiph_driver\inc\stm8s.h	2753;"	macro
 INTERRUPT_HANDLER_TRAP	..\stm8s_stdperiph_driver\inc\stm8s.h	2762;"	macro
+INTERRUPT_HANDLER_TRAP	stm8s_it.c	63;"	function
 IN_RAM	..\stm8s_stdperiph_driver\inc\stm8s.h	170;"	macro
 IN_RAM	..\stm8s_stdperiph_driver\inc\stm8s.h	172;"	macro
 IN_RAM	..\stm8s_stdperiph_driver\inc\stm8s.h	174;"	macro
@@ -1632,7 +1633,7 @@ TRISER	..\stm8s_stdperiph_driver\inc\stm8s.h	1338;"	member	struct:I2C_struct
 TRUE	..\stm8s_stdperiph_driver\inc\stm8s.h	230;"	enumerator	enum:__anon1
 TSR	..\stm8s_stdperiph_driver\inc\stm8s.h	2173;"	member	struct:__anon5
 TXCRCR	..\stm8s_stdperiph_driver\inc\stm8s.h	1700;"	member	struct:SPI_struct
-Timer_Config	main.c	43;"	function	signature:(void)
+Timer_Config	main.c	45;"	function	signature:(void)
 Timer_Config	main.c	7;"	prototype	file:	signature:(void)
 TxMailbox	..\stm8s_stdperiph_driver\inc\stm8s.h	2200;"	member	union:__anon5::__anon6	typeref:struct:__anon5::__anon6::__anon7
 U16_MAX	..\stm8s_stdperiph_driver\inc\stm8s.h	242;"	macro
@@ -1915,7 +1916,7 @@ __STM8S_TIM4_H	..\stm8s_stdperiph_driver\inc\stm8s_tim4.h	30;"	macro
 _stext	stm8_interrupt_vector.c	20;"	prototype	file:
 _stext	stm8s_it.h	40;"	prototype	signature:(void)
 _vectab	stm8_interrupt_vector.c	22;"	variable
-assert_failed	main.c	68;"	function	signature:(uint8_t* file, uint32_t line)
+assert_failed	main.c	70;"	function	signature:(uint8_t* file, uint32_t line)
 assert_failed	stm8s_conf.h	105;"	prototype	signature:(uint8_t* file, uint32_t line)
 assert_param	stm8s_conf.h	103;"	macro
 assert_param	stm8s_conf.h	107;"	macro

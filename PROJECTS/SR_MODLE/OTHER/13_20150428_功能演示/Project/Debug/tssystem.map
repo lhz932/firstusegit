@@ -1,0 +1,650 @@
+
+Map of Debug\tssystem.sm8 from link file Debug\tssystem.lkf - Wed Nov 25 21:42:42 2015
+
+
+                               --------
+                               Segments
+                               --------
+
+start 00008080 end 00008a85 length  2565 segment .const
+start 00008b2d end 00009fab length  5246 segment .text
+start 00004000 end 00004000 length     0 segment .eeprom
+start 00000000 end 00000099 length   153 segment .bsct, initialized
+start 00008a92 end 00008b2b length   153 segment .bsct, from
+start 00000099 end 000000e7 length    78 segment .ubsct
+start 000000e7 end 000000e7 length     0 segment .bit
+start 000000e7 end 000000e7 length     0 segment .share
+start 00000100 end 00000102 length     2 segment .data, initialized
+start 00008b2b end 00008b2d length     2 segment .data, from
+start 00000102 end 00000310 length   526 segment .bss
+start 00000000 end 000006c6 length  1734 segment .info.
+start 00000000 end 00002d83 length 11651 segment .debug
+start 00008000 end 00008080 length   128 segment .const
+start 00008a85 end 00008a92 length    13 segment .init
+
+
+                               -------
+                               Modules
+                               -------
+
+C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8:
+start 00008b2d end 00008b7d length    80 section .text
+start 00000102 end 00000102 length     0 section .bss
+start 00000099 end 00000099 length     0 section .ubsct
+start 00000000 end 0000002f length    47 section .info.
+
+Debug\stm8s_flash.o:
+start 00008b7d end 00008bc2 length    69 section .text
+start 00000000 end 000003f5 length  1013 section .debug
+start 0000002f end 000000c2 length   147 section .info.
+
+Debug\stm8s_gpio.o:
+start 00008bc2 end 00008c2c length   106 section .text
+start 000003f5 end 00000b32 length  1853 section .debug
+start 000000c2 end 00000154 length   146 section .info.
+
+Debug\main.o:
+start 00008c2c end 0000937b length  1871 section .text
+start 00000100 end 00000102 length     2 section .data
+start 00000102 end 00000118 length    22 section .bss
+start 00000000 end 00000001 length     1 section .bsct
+start 00000099 end 0000009c length     3 section .ubsct
+start 00000b32 end 00001284 length  1874 section .debug
+start 00000154 end 000001e0 length   140 section .info.
+start 00008080 end 00008193 length   275 section .const
+
+Debug\stm8s_it.o:
+start 0000937b end 000093d4 length    89 section .text
+start 00000001 end 00000003 length     2 section .bsct
+start 0000009c end 0000009d length     1 section .ubsct
+start 00001284 end 000018a6 length  1570 section .debug
+start 000001e0 end 00000270 length   144 section .info.
+
+Debug\ds18b20.o:
+start 000093d4 end 000097c5 length  1009 section .text
+start 0000009d end 000000dd length    64 section .ubsct
+start 000018a6 end 00001d01 length  1115 section .debug
+start 00000270 end 000002ff length   143 section .info.
+
+Debug\font_lib.o:
+start 00000003 end 00000099 length   150 section .bsct
+start 00001d01 end 00001ec3 length   450 section .debug
+start 000002ff end 0000038f length   144 section .info.
+start 00008193 end 00008a73 length  2272 section .const
+
+Debug\nokia5110.o:
+start 000097c5 end 00009e54 length  1679 section .text
+start 00000118 end 00000310 length   504 section .bss
+start 00001ec3 end 00002758 length  2197 section .debug
+start 0000038f end 00000420 length   145 section .info.
+start 00008a73 end 00008a85 length    18 section .const
+
+Debug\others.o:
+start 00009e54 end 00009f07 length   179 section .text
+start 000000dd end 000000e1 length     4 section .ubsct
+start 00002758 end 000029d8 length   640 section .debug
+start 00000420 end 000004ae length   142 section .info.
+
+Debug\test.o:
+start 00009f07 end 00009f5e length    87 section .text
+start 000029d8 end 00002c18 length   576 section .debug
+start 000004ae end 0000053a length   140 section .info.
+
+(C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)imul.o:
+start 00009f5e end 00009f7f length    33 section .text
+start 0000053a end 00000568 length    46 section .info.
+
+(C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)sdivx.o:
+start 00009f7f end 00009faa length    43 section .text
+start 00000568 end 00000597 length    47 section .info.
+
+(C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)xreg.o:
+start 000000e1 end 000000e4 length     3 section .ubsct
+start 00000597 end 000005c5 length    46 section .info.
+
+(C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)yreg.o:
+start 000000e4 end 000000e7 length     3 section .ubsct
+start 000005c5 end 000005f3 length    46 section .info.
+
+Debug\stm8_interrupt_vector.o:
+start 00009faa end 00009fab length     1 section .text
+start 00002c18 end 00002d83 length   363 section .debug
+start 000005f3 end 00000690 length   157 section .info.
+start 00008000 end 00008080 length   128 section .const
+
+
+                             -----------
+                             Stack usage
+                             -----------
+
+Debug\ds18b20.o:
+_Ds18b20_Init                           8   (2)
+_Ds18b20_MasterRead                     8   (3)
+_Ds18b20_MasterReadOneByte         >   12   (4)
+_Ds18b20_MasterWriteOneByte            12   (4)
+_Ds18b20_MasterWrite_0                  7   (2)
+_Ds18b20_MasterWrite_1                  8   (3)
+_Ds18b20_Reset                          7   (2)
+_Ds18b20_SearchROM                     38   (26)
+
+Debug\main.o:
+L112_MCL_Mouse                         43   (5)
+_CLK_Config                             2   (2)
+_Check_Sensor                          45   (7)
+_GPIO_Config_SystemOn                   8   (2)
+_MCL_Add                               52   (7)
+_Main_Control_Logic                    45   (2)
+_Task_10ms_NotCritical                  2   (2)
+_Task_1ms_NotCritical                   2   (2)
+_Timer_Config                           2   (2)
+_main                              >   54   (2)
+
+Debug\nokia5110.o:
+L143_print_oneChar                     28   (18)
+L32_write_byte                          5   (5)
+L541_set_adress                        10   (5)
+L571_print_oneChineseWord              28   (18)
+_LCD_Clear                             11   (6)
+_LCD_Print                             38   (10)
+_LCD_Print_0to9DecNum                  35   (7)
+_LCD_Print_HexNum                      36   (8)
+_Nokia5110_Init                        13   (2)
+_Nokia5110_PortInit                     8   (2)
+
+Debug\others.o:
+_Key_Init                               8   (2)
+_Key_Scan                               8   (6)
+_xCal_crc                               7   (7)
+
+Debug\stm8_interrupt_vector.o:
+f_NonHandledInterrupt              >    6   (6)
+
+Debug\stm8s_flash.o:
+_FLASH_DeInit                      >    2   (2)
+_FLASH_EraseByte                        6   (6)
+_FLASH_Lock                             2   (2)
+_FLASH_ProgramByte                 >    7   (7)
+_FLASH_ReadByte                         6   (6)
+_FLASH_SetProgrammingTime               2   (2)
+_FLASH_Unlock                           2   (2)
+
+Debug\stm8s_gpio.o:
+_GPIO_Init                              6   (6)
+_GPIO_ReadInputData                     2   (2)
+_GPIO_ReadInputPin                      5   (5)
+_GPIO_WriteHigh                         5   (5)
+_GPIO_WriteLow                          5   (5)
+
+Debug\stm8s_it.o:
+f_ADC1_IRQHandler                  >    6   (6)
+f_AWU_IRQHandler                   >    6   (6)
+f_CLK_IRQHandler                   >    6   (6)
+f_EEPROM_EEC_IRQHandler            >    6   (6)
+f_EXTI_PORTA_IRQHandler            >    6   (6)
+f_EXTI_PORTB_IRQHandler            >    6   (6)
+f_EXTI_PORTC_IRQHandler            >    6   (6)
+f_EXTI_PORTD_IRQHandler            >    6   (6)
+f_EXTI_PORTE_IRQHandler            >    6   (6)
+f_I2C_IRQHandler                   >    6   (6)
+f_SPI_IRQHandler                   >    6   (6)
+f_TIM1_CAP_COM_IRQHandler          >    6   (6)
+f_TIM1_UPD_OVF_TRG_BRK_IRQHandler  >    6   (6)
+f_TIM2_CAP_COM_IRQHandler          >    6   (6)
+f_TIM2_UPD_OVF_BRK_IRQHandler      >    6   (6)
+f_TIM4_UPD_OVF_IRQHandler          >   19   (12)
+f_TLI_IRQHandler                   >    6   (6)
+f_TRAP_IRQHandler                  >    6   (6)
+f_UART1_RX_IRQHandler              >    6   (6)
+f_UART1_TX_IRQHandler              >    6   (6)
+
+Debug\test.o:
+_LED_Init                               8   (2)
+_LED_Off                                7   (2)
+_LED_On                                 7   (2)
+_delay_10us                             4   (4)
+_delay_ms                               7   (3)
+_delay_nx100ms                         10   (3)
+
+Stack size: 73
+
+
+                              ---------
+                              Call tree
+                              ---------
+   1 > _Ds18b20_MasterReadOneByte: (4)
+   2      + _Ds18b20_MasterRead: (3)
+   3      |    + _GPIO_ReadInputPin: (5)
+   4      |    + _GPIO_WriteHigh: (5)
+   5      |    + _GPIO_WriteLow: (5)
+   6      |    + _delay_10us: (4)
+          | 
+       
+   7 > _FLASH_DeInit: (2)
+
+   8 > _FLASH_ProgramByte: (7)
+
+   9 > __stext: (0)
+
+  10 > _main: (2)
+  11      + _CLK_Config: (2)
+  12      + _Check_Sensor: (7)
+  13      |    + _Ds18b20_SearchROM: (26)
+  14      |    |    + _Ds18b20_MasterRead --> 2
+  15      |    |    + _Ds18b20_MasterWriteOneByte: (4)
+  16      |    |    |    + _Ds18b20_MasterWrite_0: (2)
+  17      |    |    |    |    + _GPIO_WriteHigh --> 4
+  18      |    |    |    |    + _GPIO_WriteLow --> 5
+  19      |    |    |    |    + _delay_10us --> 6
+          |    |    |    | 
+  20      |    |    |    + _Ds18b20_MasterWrite_1: (3)
+  21      |    |    |    |    + _GPIO_WriteHigh --> 4
+  22      |    |    |    |    + _GPIO_WriteLow --> 5
+  23      |    |    |    |    + _delay_10us --> 6
+          |    |    |    | 
+          |    |    | 
+  24      |    |    + _Ds18b20_MasterWrite_0 --> 16
+  25      |    |    + _Ds18b20_MasterWrite_1 --> 20
+  26      |    |    + _Ds18b20_Reset: (2)
+  27      |    |    |    + _GPIO_ReadInputPin --> 3
+  28      |    |    |    + _GPIO_WriteHigh --> 4
+  29      |    |    |    + _GPIO_WriteLow --> 5
+  30      |    |    |    + _delay_10us --> 6
+          |    |    | 
+          |    | 
+  31      |    + _FLASH_ReadByte: (6)
+  32      |    + _xCal_crc: (7)
+          | 
+  33      + _Ds18b20_Init: (2)
+  34      |    + _GPIO_Init: (6)
+          | 
+  35      + _FLASH_SetProgrammingTime: (2)
+  36      + _GPIO_Config_SystemOn: (2)
+  37      |    + _GPIO_Init --> 34
+          | 
+  38      + _Key_Init: (2)
+  39      |    + _GPIO_Init --> 34
+          | 
+  40      + _Key_Scan: (6)
+  41      |    + _GPIO_ReadInputData: (2)
+          | 
+  42      + _LCD_Clear: (6)
+  43      |    + L32_write_byte: (5)
+          | 
+  44      + _LCD_Print: (10)
+  45      |    + L143_print_oneChar: (18)
+  46      |    |    + L32_write_byte --> 43
+  47      |    |    + L541_set_adress: (5)
+  48      |    |    |    + L32_write_byte --> 43
+          |    |    | 
+          |    | 
+  49      |    + L571_print_oneChineseWord: (18)
+  50      |    |    + L32_write_byte --> 43
+  51      |    |    + L541_set_adress --> 47
+          |    | 
+          | 
+  52      + _LED_Init: (2)
+  53      |    + _GPIO_Init --> 34
+          | 
+  54      + _MCL_Add: (7)
+  55      |    + _Check_Sensor --> 12
+  56      |    + _LCD_Clear --> 42
+  57      |    + _LCD_Print --> 44
+  58      |    + _LCD_Print_0to9DecNum: (7)
+  59      |    |    + L143_print_oneChar --> 45
+          |    | 
+  60      |    + _LCD_Print_HexNum: (8)
+  61      |    |    + L143_print_oneChar --> 45
+          |    | 
+          | 
+  62      + _Main_Control_Logic: (2)
+  63      |    + L112_MCL_Mouse: (5)
+  64      |    |    + _LCD_Print --> 44
+          |    | 
+  65      |    + _FLASH_EraseByte: (6)
+  66      |    + _FLASH_Lock: (2)
+  67      |    + _FLASH_Unlock: (2)
+  68      |    + _LCD_Clear --> 42
+  69      |    + _LCD_Print --> 44
+          | 
+  70      + _Nokia5110_Init: (2)
+  71      |    + L32_write_byte --> 43
+  72      |    + _LCD_Clear --> 42
+  73      |    + _Nokia5110_PortInit: (2)
+  74      |    |    + _GPIO_Init --> 34
+          |    | 
+  75      |    + _delay_ms: (3)
+  76      |    |    + _delay_10us --> 6
+          |    | 
+          | 
+  77      + _Task_10ms_NotCritical: (2)
+  78      + _Task_1ms_NotCritical: (2)
+  79      + _Timer_Config: (2)
+  80      + _delay_nx100ms: (3)
+  81      |    + _delay_ms --> 75
+          | 
+       
+  82 > f_ADC1_IRQHandler: (6)
+
+  83 > f_AWU_IRQHandler: (6)
+
+  84 > f_CLK_IRQHandler: (6)
+
+  85 > f_EEPROM_EEC_IRQHandler: (6)
+
+  86 > f_EXTI_PORTA_IRQHandler: (6)
+
+  87 > f_EXTI_PORTB_IRQHandler: (6)
+
+  88 > f_EXTI_PORTC_IRQHandler: (6)
+
+  89 > f_EXTI_PORTD_IRQHandler: (6)
+
+  90 > f_EXTI_PORTE_IRQHandler: (6)
+
+  91 > f_I2C_IRQHandler: (6)
+
+  92 > f_NonHandledInterrupt: (6)
+
+  93 > f_SPI_IRQHandler: (6)
+
+  94 > f_TIM1_CAP_COM_IRQHandler: (6)
+
+  95 > f_TIM1_UPD_OVF_TRG_BRK_IRQHandler: (6)
+
+  96 > f_TIM2_CAP_COM_IRQHandler: (6)
+
+  97 > f_TIM2_UPD_OVF_BRK_IRQHandler: (6)
+
+  98 > f_TIM4_UPD_OVF_IRQHandler: (12)
+  99      + _LED_Off: (2)
+ 100      |    + _GPIO_WriteHigh --> 4
+          | 
+ 101      + _LED_On: (2)
+ 102      |    + _GPIO_WriteLow --> 5
+          | 
+       
+ 103 > f_TLI_IRQHandler: (6)
+
+ 104 > f_TRAP_IRQHandler: (6)
+
+ 105 > f_UART1_RX_IRQHandler: (6)
+
+ 106 > f_UART1_TX_IRQHandler: (6)
+
+ 107   L112_MCL_Mouse --> 63
+
+ 108   L143_print_oneChar --> 45
+
+ 109   L32_write_byte --> 43
+
+ 110   L541_set_adress --> 47
+
+ 111   L571_print_oneChineseWord --> 49
+
+ 112   _CLK_Config --> 11
+
+ 113   _Check_Sensor --> 12
+
+ 114   _Ds18b20_Init --> 33
+
+ 115   _Ds18b20_MasterRead --> 2
+
+ 116   _Ds18b20_MasterWriteOneByte --> 15
+
+ 117   _Ds18b20_MasterWrite_0 --> 16
+
+ 118   _Ds18b20_MasterWrite_1 --> 20
+
+ 119   _Ds18b20_Reset --> 26
+
+ 120   _Ds18b20_SearchROM --> 13
+
+ 121   _FLASH_EraseByte --> 65
+
+ 122   _FLASH_Lock --> 66
+
+ 123   _FLASH_ReadByte --> 31
+
+ 124   _FLASH_SetProgrammingTime --> 35
+
+ 125   _FLASH_Unlock --> 67
+
+ 126   _GPIO_Config_SystemOn --> 36
+
+ 127   _GPIO_Init --> 34
+
+ 128   _GPIO_ReadInputData --> 41
+
+ 129   _GPIO_ReadInputPin --> 3
+
+ 130   _GPIO_WriteHigh --> 4
+
+ 131   _GPIO_WriteLow --> 5
+
+ 132   _Key_Init --> 38
+
+ 133   _Key_Scan --> 40
+
+ 134   _LCD_Clear --> 42
+
+ 135   _LCD_Print --> 44
+
+ 136   _LCD_Print_0to9DecNum --> 58
+
+ 137   _LCD_Print_HexNum --> 60
+
+ 138   _LED_Init --> 52
+
+ 139   _LED_Off --> 99
+
+ 140   _LED_On --> 101
+
+ 141   _MCL_Add --> 54
+
+ 142   _Main_Control_Logic --> 62
+
+ 143   _Nokia5110_Init --> 70
+
+ 144   _Nokia5110_PortInit --> 73
+
+ 145   _Task_10ms_NotCritical --> 77
+
+ 146   _Task_1ms_NotCritical --> 78
+
+ 147   _Timer_Config --> 79
+
+ 148   _delay_10us --> 6
+
+ 149   _delay_ms --> 75
+
+ 150   _delay_nx100ms --> 80
+
+ 151   _xCal_crc --> 32
+
+
+
+                               -------
+                               Symbols
+                               -------
+
+_CLK_Config                         00008d02   defined in Debug\main.o section .text
+_CharIndex                          0000819e   defined in Debug\font_lib.o section .const
+                                               used in Debug\nokia5110.o
+_CharLib                            000081b2   defined in Debug\font_lib.o section .const
+                                               used in Debug\nokia5110.o
+_Char_ndef                          00008193   defined in Debug\font_lib.o section .const
+_Check_Sensor                       00008d3b   defined in Debug\main.o section .text
+_Chinese_ndef                       0000819b   defined in Debug\font_lib.o section .const
+                                               used in Debug\nokia5110.o
+_Ds18b20_Init                       000093d4   defined in Debug\ds18b20.o section .text
+                                               used in Debug\main.o
+_Ds18b20_MasterRead                 0000947b   defined in Debug\ds18b20.o section .text
+_Ds18b20_MasterReadOneByte          000094e9   defined in Debug\ds18b20.o section .text
+_Ds18b20_MasterWriteOneByte         000094cb   defined in Debug\ds18b20.o section .text
+_Ds18b20_MasterWrite_0              0000943b   defined in Debug\ds18b20.o section .text
+_Ds18b20_MasterWrite_1              00009455   defined in Debug\ds18b20.o section .text
+_Ds18b20_Reset                      000093e0   defined in Debug\ds18b20.o section .text
+_Ds18b20_SearchROM                  00009507   defined in Debug\ds18b20.o section .text
+                                               used in Debug\main.o
+_FLASH_DeInit                       00008b91   defined in Debug\stm8s_flash.o section .text
+_FLASH_EraseByte                    00008ba9   defined in Debug\stm8s_flash.o section .text
+                                               used in Debug\main.o
+_FLASH_Lock                         00008b8a   defined in Debug\stm8s_flash.o section .text
+                                               used in Debug\main.o
+_FLASH_ProgramByte                  00008bad   defined in Debug\stm8s_flash.o section .text
+_FLASH_ReadByte                     00008bb3   defined in Debug\stm8s_flash.o section .text
+                                               used in Debug\main.o
+_FLASH_SetProgrammingTime           00008bb7   defined in Debug\stm8s_flash.o section .text
+                                               used in Debug\main.o
+_FLASH_Unlock                       00008b7d   defined in Debug\stm8s_flash.o section .text
+                                               used in Debug\main.o
+_FontIndex                          00000003   defined in Debug\font_lib.o section .bsct, initialized
+                                               used in Debug\nokia5110.o
+_FontLib                            00008296   defined in Debug\font_lib.o section .const
+                                               used in Debug\nokia5110.o
+_GPIO_Config_SystemOn               00008cd5   defined in Debug\main.o section .text
+_GPIO_Init                          00008bc2   defined in Debug\stm8s_gpio.o section .text
+                                               used in Debug\main.o
+                                                       Debug\ds18b20.o
+                                                       Debug\nokia5110.o
+                                                       Debug\others.o
+                                                       Debug\test.o
+_GPIO_ReadInputData                 00008c22   defined in Debug\stm8s_gpio.o section .text
+                                               used in Debug\others.o
+_GPIO_ReadInputPin                  00008c25   defined in Debug\stm8s_gpio.o section .text
+                                               used in Debug\ds18b20.o
+_GPIO_WriteHigh                     00008c13   defined in Debug\stm8s_gpio.o section .text
+                                               used in Debug\ds18b20.o
+                                                       Debug\test.o
+_GPIO_WriteLow                      00008c1a   defined in Debug\stm8s_gpio.o section .text
+                                               used in Debug\ds18b20.o
+                                                       Debug\test.o
+_KeyVal                             00000101   defined in Debug\main.o section .data, initialized
+_Key_Init                           00009e54   defined in Debug\others.o section .text
+                                               used in Debug\main.o
+_Key_Scan                           00009e63   defined in Debug\others.o section .text
+                                               used in Debug\main.o
+_LCD_Clear                          0000983a   defined in Debug\nokia5110.o section .text
+                                               used in Debug\main.o
+_LCD_Print                          00009d3e   defined in Debug\nokia5110.o section .text
+                                               used in Debug\main.o
+_LCD_Print_0to9DecNum               00009e36   defined in Debug\nokia5110.o section .text
+                                               used in Debug\main.o
+_LCD_Print_HexNum                   00009de5   defined in Debug\nokia5110.o section .text
+                                               used in Debug\main.o
+_LED_Init                           00009f3e   defined in Debug\test.o section .text
+                                               used in Debug\main.o
+_LED_Off                            00009f54   defined in Debug\test.o section .text
+                                               used in Debug\stm8s_it.o
+_LED_On                             00009f4a   defined in Debug\test.o section .text
+                                               used in Debug\stm8s_it.o
+_MCL_Add                            00008e09   defined in Debug\main.o section .text
+_Main_Control_Logic                 000091a9   defined in Debug\main.o section .text
+_Mode                               00000100   defined in Debug\main.o section .data, initialized
+_Nokia5110_Init                     00009883   defined in Debug\nokia5110.o section .text
+                                               used in Debug\main.o
+_Nokia5110_PortInit                 000097c5   defined in Debug\nokia5110.o section .text
+_ROM_Buf                            0000009d   defined in Debug\ds18b20.o section .ubsct
+                                               used in Debug\main.o
+_SensorConfigData                   00000104   defined in Debug\main.o section .bss
+_Sensors                            0000010f   defined in Debug\main.o section .bss
+_Sheshidu                           00008194   defined in Debug\font_lib.o section .const
+_Task_10ms_NotCritical              00008d2a   defined in Debug\main.o section .text
+_Task_10ms_NotCritical_cnt          0000009a   defined in Debug\main.o section .ubsct
+                                               used in Debug\stm8s_it.o
+_Task_1ms_NotCritical               00008d21   defined in Debug\main.o section .text
+_Task_1ms_NotCritical_cnt           0000009b   defined in Debug\main.o section .ubsct
+                                               used in Debug\stm8s_it.o
+_Timer_Config                       00008d07   defined in Debug\main.o section .text
+__endmem                            000001ff   defined in command file
+                                               *** not used ***
+__endzp                             000000e7   defined in command file section .ubsct
+                                               used in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8
+__idesc__                           00008a85   defined in linker section .init
+                                               used in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8
+__memory                            00000310   defined in command file section .bss
+                                               used in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8
+__stack                             000003ff   defined in command file
+                                               used in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8
+__startmem                          00000310   defined in command file section .bss
+                                               *** not used ***
+__stext                             00008b2d   defined in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8 section .text
+                                               used in Debug\stm8_interrupt_vector.o
+__vectab                            00008000   defined in Debug\stm8_interrupt_vector.o section .const
+_delay_10us                         00009f07   defined in Debug\test.o section .text
+                                               used in Debug\ds18b20.o
+_delay_ms                           00009f1e   defined in Debug\test.o section .text
+                                               used in Debug\nokia5110.o
+_delay_nx100ms                      00009f2e   defined in Debug\test.o section .text
+                                               used in Debug\main.o
+_exit                               00008b7b   defined in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8 section .text
+_main                               00008c2c   defined in Debug\main.o section .text
+                                               used in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8
+_mask_high                          00008a7b   defined in Debug\nokia5110.o section .const
+_mask_low                           00008a73   defined in Debug\nokia5110.o section .const
+_pChar_ndef                         00008197   defined in Debug\font_lib.o section .const
+                                               used in Debug\nokia5110.o
+_pSheshidu                          00008199   defined in Debug\font_lib.o section .const
+                                               used in Debug\main.o
+_pt_KeyScan                         000000de   defined in Debug\others.o section .ubsct
+_pt_KeyScan_cnt                     000000e0   defined in Debug\others.o section .ubsct
+                                               used in Debug\main.o
+_pt_MCL_Add                         00000116   defined in Debug\main.o section .bss
+_pt_MCL_Add_cnt                     00000115   defined in Debug\main.o section .bss
+_xCal_crc                           00009ed2   defined in Debug\others.o section .text
+                                               used in Debug\main.o
+c_imul                              00009f5e   defined in (C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)imul.o section .text
+                                               used in Debug\nokia5110.o
+c_sdivx                             00009f85   defined in (C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)sdivx.o section .text
+                                               used in Debug\nokia5110.o
+c_smodx                             00009f7f   defined in (C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)sdivx.o section .text
+                                               used in Debug\nokia5110.o
+c_x                                 000000e1   defined in (C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)xreg.o section .ubsct
+                                               used in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8
+                                                       Debug\stm8s_it.o
+                                                       (C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)imul.o
+                                                       (C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)sdivx.o
+c_y                                 000000e4   defined in (C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\libm0.sm8)yreg.o section .ubsct
+                                               used in C:\Program Files (x86)\COSMIC\32K_Compilers\CXSTM8\Lib\crtsi0.sm8
+                                                       Debug\stm8s_it.o
+f_ADC1_IRQHandler                   0000938c   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_AWU_IRQHandler                    0000937d   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_CLK_IRQHandler                    0000937e   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_EEPROM_EEC_IRQHandler             000093d3   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_EXTI_PORTA_IRQHandler             0000937f   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_EXTI_PORTB_IRQHandler             00009380   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_EXTI_PORTC_IRQHandler             00009381   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_EXTI_PORTD_IRQHandler             00009382   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_EXTI_PORTE_IRQHandler             00009383   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_I2C_IRQHandler                    0000938b   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_NonHandledInterrupt               00009faa   defined in Debug\stm8_interrupt_vector.o section .text
+f_SPI_IRQHandler                    00009384   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_TIM1_CAP_COM_IRQHandler           00009386   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_TIM1_UPD_OVF_TRG_BRK_IRQHandler   00009385   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_TIM2_CAP_COM_IRQHandler           00009388   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_TIM2_UPD_OVF_BRK_IRQHandler       00009387   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_TIM4_UPD_OVF_IRQHandler           0000938d   defined in Debug\stm8s_it.o section .text
+                                               used in Debug\stm8_interrupt_vector.o
+f_TLI_IRQHandler                    0000937c   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_TRAP_IRQHandler                   0000937b   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_UART1_RX_IRQHandler               0000938a   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
+f_UART1_TX_IRQHandler               00009389   defined in Debug\stm8s_it.o section .text
+                                               *** not used ***
