@@ -27,7 +27,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm8s_it.h"
-
+#include	"main.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -460,6 +460,9 @@ INTERRUPT_HANDLER(TIM6_UPD_OVF_TRG_IRQHandler, 23)
 	
 	TIM4_ClearITPendingBit(TIM4_IT_UPDATE);
 	
+	Timebase_cnt++;
+	
+	Tasks_1ms_TimeCritical();
 	
 }
 #endif /*STM8S903*/

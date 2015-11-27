@@ -3,15 +3,65 @@
  * Copyright (c) 2002-2005 STMicroelectronics
  */
 #include "stm8s_conf.h"
+#include	"indicator_light.h"
+volatile uint8_t Timebase_cnt=0;
+uint8_t TCnt_10ms;
+
 void 	GPIO_Config_SystemOn(void);
 void 	CLK_Config(void);
 void 	Timer_Config(void);
+void TimeCounters_1ms(void);
+void TimeCounters_10ms(void);
+
+//this fucntion is called in ISR
+void Tasks_1ms_TimeCritical(void)
+{
+	
+}
+
+void TimeCounters_1ms(void)
+{
+	if(Timebase_cnt>0)
+	{
+		Timebase_cnt--;
+		TCnt_10ms++;
+		
+		//write your counters
+		
+		
+	}
+	
+}
+
+void TimeCounters_10ms(void)
+{
+	if(TCnt_10ms>9)
+	{
+		TCnt_10ms-=10;
+		
+		//write your counters
+		Indcator_cnt++;
+		
+	}
+	
+}
 
 main()
 {
 	GPIO_Config_SystemOn();
 	CLK_Config();	//Configure the Fcpu to 8MHz,Fmaster=8MHz	
-	while (1);
+	Timer_Config();
+	
+	Indicator_Init();
+	
+	while (1)
+	{
+			TimeCounters_1ms();
+			TimeCounters_10ms();
+			
+			Indicator_Running();
+			
+	}
 }
 
 
