@@ -54,8 +54,10 @@ Debug\main.o
 Debug\stm8s_it.o
 Debug\stm8s_clk.o
 Debug\stm8s_gpio.o
+Debug\stm8s_tim1.o
 Debug\stm8s_tim4.o
 Debug\indicator_light.o
+Debug\motor.o
 #<END OBJECT_FILES>
 
 

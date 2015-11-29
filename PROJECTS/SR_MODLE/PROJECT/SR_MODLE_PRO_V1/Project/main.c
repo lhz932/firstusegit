@@ -83,6 +83,29 @@ void CLK_Config(void)
 }
 void 	Timer_Config(void)
 {
+	/*Timer1 config*/
+	TIM1_DeInit();
+	TIM1_TimeBaseInit(	0,																	//不分频，即8MHZ
+											TIM1_COUNTERMODE_CENTERALIGNED1 ,		//中央对齐模式
+											200,																//设置输出频率 20K
+											0);																	//重复计数器
+	TIM1_OC3Init(	TIM1_OCMODE_PWM2,													//TIM1_CNT<TIM1_CCR1时为无效电平
+								TIM1_OUTPUTSTATE_ENABLE, 									//OC3信号输出到引脚
+								TIM1_OUTPUTNSTATE_DISABLE,								//
+								120,																			//设置占空比
+								TIM1_OCPOLARITY_LOW,											//OC1高电平有效
+								TIM1_OCNPOLARITY_LOW,
+								TIM1_OCIDLESTATE_RESET,										//空闲状态OC1=0							
+								
+								TIM1_OCNIDLESTATE_RESET);
+	 TIM1_Cmd(ENABLE);																			//使能计数器
+	 TIM1_CtrlPWMOutputs(ENABLE);														// TIM1 Main Output Enable
+
+
+							
+								
+								
+	
 	/*Timer4 config*/	
 	TIM4_TimeBaseInit(TIM4_PRESCALER_32,249);	//1ms---(x-1)*32=8000
 	//Clear TIM4 update flag 
@@ -94,6 +117,9 @@ void 	Timer_Config(void)
 	//disableInterrupts();
   //Enable TIM4 
   TIM4_Cmd(ENABLE);
+	
+	
+	
 }
 
 

@@ -10,7 +10,7 @@ void Indicator_Init(void)
 	GPIO_Init(INDICATOR_PORT,INDICATOR_PIN,GPIO_MODE_OUT_PP_HIGH_SLOW);
 }
 
-//扫描周期
+//注意扫描周期
 void Indicator_Running(void)
 {
 	static uint8_t status,cnt;
