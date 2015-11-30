@@ -54,8 +54,8 @@ ADC2_TDRH_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	405;"	macro
 ADC2_TDRL_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	404;"	macro
 ADC2_TypeDef	..\stm8s_stdperiph_driver\inc\stm8s.h	396;"	typedef	typeref:struct:ADC2_struct
 ADC2_struct	..\stm8s_stdperiph_driver\inc\stm8s.h	385;"	struct
-ALARM	..\user_files\src\motor.c	41;"	macro	file:
-ALARM_PORT	..\user_files\src\motor.c	40;"	macro	file:
+ALARM	..\user_files\src\motor.c	44;"	macro	file:
+ALARM_PORT	..\user_files\src\motor.c	43;"	macro	file:
 APR	..\stm8s_stdperiph_driver\inc\stm8s.h	438;"	member	struct:AWU_struct
 AREA	..\stm8s_stdperiph_driver\inc\stm8s.h	2818;"	macro
 ARR	..\stm8s_stdperiph_driver\inc\stm8s.h	1065;"	member	struct:TIM4_struct
@@ -86,7 +86,7 @@ AWU_TBR_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	448;"	macro
 AWU_TypeDef	..\stm8s_stdperiph_driver\inc\stm8s.h	441;"	typedef	typeref:struct:AWU_struct
 AWU_struct	..\stm8s_stdperiph_driver\inc\stm8s.h	435;"	struct
 AffBit	..\stm8s_stdperiph_driver\inc\stm8s.h	2792;"	macro
-Alarm_Init	..\user_files\src\motor.c	61;"	function	file:	signature:(void)
+Alarm_Init	..\user_files\src\motor.c	65;"	function	file:	signature:(void)
 BEEP	..\stm8s_stdperiph_driver\inc\stm8s.h	2612;"	macro
 BEEP_BaseAddress	..\stm8s_stdperiph_driver\inc\stm8s.h	2572;"	macro
 BEEP_CSR_BEEPDIV	..\stm8s_stdperiph_driver\inc\stm8s.h	494;"	macro
@@ -347,7 +347,7 @@ CLK_ClockSwitchCmd	..\stm8s_stdperiph_driver\src\stm8s_clk.c	213;"	function	sign
 CLK_ClockSwitchConfig	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	361;"	prototype	signature:(CLK_SwitchMode_TypeDef CLK_SwitchMode, CLK_Source_TypeDef CLK_NewClock, FunctionalState ITState, CLK_CurrentClockState_TypeDef CLK_CurrentClockState)
 CLK_ClockSwitchConfig	..\stm8s_stdperiph_driver\src\stm8s_clk.c	309;"	function	signature:(CLK_SwitchMode_TypeDef CLK_SwitchMode, CLK_Source_TypeDef CLK_NewClock, FunctionalState ITState, CLK_CurrentClockState_TypeDef CLK_CurrentClockState)
 CLK_Config	main.c	15;"	prototype	file:	signature:(void)
-CLK_Config	main.c	82;"	function	signature:(void)
+CLK_Config	main.c	86;"	function	signature:(void)
 CLK_CurrentClockState_TypeDef	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	56;"	typedef	typeref:enum:__anon15
 CLK_DeInit	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	352;"	prototype	signature:(void)
 CLK_DeInit	..\stm8s_stdperiph_driver\src\stm8s_clk.c	72;"	function	signature:(void)
@@ -775,7 +775,7 @@ GPIOI_BaseAddress	..\stm8s_stdperiph_driver\inc\stm8s.h	2564;"	macro
 GPIO_CR1_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	280;"	macro
 GPIO_CR2_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	281;"	macro
 GPIO_Config_SystemOn	main.c	14;"	prototype	file:	signature:(void)
-GPIO_Config_SystemOn	main.c	73;"	function	signature:(void)
+GPIO_Config_SystemOn	main.c	77;"	function	signature:(void)
 GPIO_DDR_RESET_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	279;"	macro
 GPIO_DeInit	..\stm8s_stdperiph_driver\inc\stm8s_gpio.h	139;"	prototype	signature:(GPIO_TypeDef* GPIOx)
 GPIO_DeInit	..\stm8s_stdperiph_driver\src\stm8s_gpio.c	53;"	function	signature:(GPIO_TypeDef* GPIOx)
@@ -1006,17 +1006,26 @@ Indicator_Init	..\user_files\inc\indicator_light.h	6;"	prototype	signature:(void
 Indicator_Init	..\user_files\src\indicator_light.c	8;"	function	signature:(void)
 Indicator_Running	..\user_files\inc\indicator_light.h	7;"	prototype	signature:(void)
 Indicator_Running	..\user_files\src\indicator_light.c	14;"	function	signature:(void)
-KEY_A	..\user_files\src\motor.c	37;"	macro	file:
-KEY_B	..\user_files\src\motor.c	38;"	macro	file:
-KEY_PORT	..\user_files\src\motor.c	36;"	macro	file:
+KEY_A	..\user_files\src\motor.c	40;"	macro	file:
+KEY_B	..\user_files\src\motor.c	41;"	macro	file:
+KEY_PORT	..\user_files\src\motor.c	39;"	macro	file:
 KR	..\stm8s_stdperiph_driver\inc\stm8s.h	1606;"	member	struct:IWDG_struct
 Key_A	..\user_files\inc\motor.h	17;"	member	struct:motor_para
 Key_B	..\user_files\inc\motor.h	18;"	member	struct:motor_para
-Key_Init	..\user_files\src\motor.c	57;"	function	file:	signature:(void)
-L298N_ENA	..\user_files\src\motor.c	23;"	macro	file:
-L298N_IN1	..\user_files\src\motor.c	26;"	macro	file:
-L298N_IN2	..\user_files\src\motor.c	27;"	macro	file:
-L298N_IN_PORT	..\user_files\src\motor.c	25;"	macro	file:
+Key_Init	..\user_files\src\motor.c	60;"	function	file:	signature:(void)
+Key_Scan	..\user_files\src\motor.c	127;"	function	signature:(void)
+L298N_ENA	..\user_files\src\motor.c	26;"	macro	file:
+L298N_IN1	..\user_files\src\motor.c	29;"	macro	file:
+L298N_IN2	..\user_files\src\motor.c	30;"	macro	file:
+L298N_IN_PORT	..\user_files\src\motor.c	28;"	macro	file:
+LC_END	..\user_files\inc\lc-switch.h	72;"	macro
+LC_END	..\user_files\inc\lc.h	108;"	macro
+LC_INIT	..\user_files\inc\lc-switch.h	66;"	macro
+LC_INIT	..\user_files\inc\lc.h	71;"	macro
+LC_RESUME	..\user_files\inc\lc-switch.h	68;"	macro
+LC_RESUME	..\user_files\inc\lc.h	96;"	macro
+LC_SET	..\user_files\inc\lc-switch.h	70;"	macro
+LC_SET	..\user_files\inc\lc.h	84;"	macro
 LSI_VALUE	..\stm8s_stdperiph_driver\inc\stm8s.h	118;"	macro
 LTRH	..\stm8s_stdperiph_driver\inc\stm8s.h	326;"	member	struct:ADC1_struct
 LTRL	..\stm8s_stdperiph_driver\inc\stm8s.h	327;"	member	struct:ADC1_struct
@@ -1053,10 +1062,10 @@ MIDR4	..\stm8s_stdperiph_driver\inc\stm8s.h	2189;"	member	struct:__anon5::__anon
 MIDR4	..\stm8s_stdperiph_driver\inc\stm8s.h	2310;"	member	struct:__anon5::__anon6::__anon13
 MOTOR_BACKWARK	..\user_files\inc\motor.h	7;"	enumerator	enum:__anon65
 MOTOR_FORWARD	..\user_files\inc\motor.h	6;"	enumerator	enum:__anon65
-MOTOR_PWM	..\user_files\src\motor.c	22;"	macro	file:
-MOTOR_PWM_PORT	..\user_files\src\motor.c	21;"	macro	file:
+MOTOR_PWM	..\user_files\src\motor.c	25;"	macro	file:
+MOTOR_PWM_PORT	..\user_files\src\motor.c	24;"	macro	file:
 MSR	..\stm8s_stdperiph_driver\inc\stm8s.h	2172;"	member	struct:__anon5
-MT	..\user_files\src\motor.c	44;"	variable
+MT	..\user_files\src\motor.c	47;"	variable
 MTSRH	..\stm8s_stdperiph_driver\inc\stm8s.h	2199;"	member	struct:__anon5::__anon6::__anon7
 MTSRH	..\stm8s_stdperiph_driver\inc\stm8s.h	2320;"	member	struct:__anon5::__anon6::__anon13
 MTSRL	..\stm8s_stdperiph_driver\inc\stm8s.h	2198;"	member	struct:__anon5::__anon6::__anon7
@@ -1065,12 +1074,12 @@ MemoryAddressCast	..\stm8s_stdperiph_driver\inc\stm8s.h	156;"	macro
 MemoryAddressCast	..\stm8s_stdperiph_driver\inc\stm8s.h	160;"	macro
 Motor_Direction_Typedef	..\user_files\inc\motor.h	8;"	typedef	typeref:enum:__anon65
 Motor_Init	..\user_files\inc\motor.h	23;"	prototype	signature:(void)
-Motor_Init	..\user_files\src\motor.c	67;"	function	signature:(void)
+Motor_Init	..\user_files\src\motor.c	71;"	function	signature:(void)
 Motor_Para	..\user_files\inc\motor.h	21;"	typedef	typeref:struct:motor_para
 Motor_Start	..\user_files\inc\motor.h	25;"	prototype	signature:(Motor_Direction_Typedef dir)
-Motor_Start	..\user_files\src\motor.c	84;"	function	signature:(Motor_Direction_Typedef dir)
+Motor_Start	..\user_files\src\motor.c	90;"	function	signature:(Motor_Direction_Typedef dir)
 Motor_Stop	..\user_files\inc\motor.h	26;"	prototype	signature:(void)
-Motor_Stop	..\user_files\src\motor.c	97;"	function	signature:(void)
+Motor_Stop	..\user_files\src\motor.c	103;"	function	signature:(void)
 MskBit	..\stm8s_stdperiph_driver\inc\stm8s.h	2795;"	macro
 NCR2	..\stm8s_stdperiph_driver\inc\stm8s.h	1513;"	member	struct:FLASH_struct
 NEAR	..\stm8s_stdperiph_driver\inc\stm8s.h	122;"	macro
@@ -1087,9 +1096,9 @@ NonHandledInterrupt	stm8_interrupt_vector.c	13;"	function	signature:(void)
 NonHandledInterrupt	stm8s_it.h	41;"	prototype	signature:(void)
 OARH	..\stm8s_stdperiph_driver\inc\stm8s.h	1329;"	member	struct:I2C_struct
 OARL	..\stm8s_stdperiph_driver\inc\stm8s.h	1328;"	member	struct:I2C_struct
-OBSTACLE_AVOIDANCE_SENSOR_A	..\user_files\src\motor.c	30;"	macro	file:
-OBSTACLE_AVOIDANCE_SENSOR_B	..\user_files\src\motor.c	31;"	macro	file:
-OBSTACLE_AVOIDANCE_SENSOR_PORT	..\user_files\src\motor.c	29;"	macro	file:
+OBSTACLE_AVOIDANCE_SENSOR_A	..\user_files\src\motor.c	33;"	macro	file:
+OBSTACLE_AVOIDANCE_SENSOR_B	..\user_files\src\motor.c	34;"	macro	file:
+OBSTACLE_AVOIDANCE_SENSOR_PORT	..\user_files\src\motor.c	32;"	macro	file:
 ODR	..\stm8s_stdperiph_driver\inc\stm8s.h	266;"	member	struct:GPIO_struct
 OISR	..\stm8s_stdperiph_driver\inc\stm8s.h	640;"	member	struct:TIM1_struct
 OPT	..\stm8s_stdperiph_driver\inc\stm8s.h	2624;"	macro
@@ -1103,7 +1112,7 @@ OPT7	..\stm8s_stdperiph_driver\inc\stm8s.h	1594;"	member	struct:OPT_struct
 OPT_BaseAddress	..\stm8s_stdperiph_driver\inc\stm8s.h	2555;"	macro
 OPT_TypeDef	..\stm8s_stdperiph_driver\inc\stm8s.h	1597;"	typedef	typeref:struct:OPT_struct
 OPT_struct	..\stm8s_stdperiph_driver\inc\stm8s.h	1579;"	struct
-Obstacle_Avoidance_Sensor_Init	..\user_files\src\motor.c	46;"	function	file:	signature:(void)
+Obstacle_Avoidance_Sensor_Init	..\user_files\src\motor.c	49;"	function	file:	signature:(void)
 PCKENR1	..\stm8s_stdperiph_driver\inc\stm8s.h	512;"	member	struct:CLK_struct
 PCKENR2	..\stm8s_stdperiph_driver\inc\stm8s.h	515;"	member	struct:CLK_struct
 PR	..\stm8s_stdperiph_driver\inc\stm8s.h	1607;"	member	struct:IWDG_struct
@@ -1118,6 +1127,23 @@ PSCR	..\stm8s_stdperiph_driver\inc\stm8s.h	959;"	member	struct:TIM3_struct
 PSCRH	..\stm8s_stdperiph_driver\inc\stm8s.h	625;"	member	struct:TIM1_struct
 PSCRL	..\stm8s_stdperiph_driver\inc\stm8s.h	626;"	member	struct:TIM1_struct
 PSR	..\stm8s_stdperiph_driver\inc\stm8s.h	2178;"	member	struct:__anon5
+PT_BEGIN	..\user_files\inc\pt.h	115;"	macro
+PT_END	..\user_files\inc\pt.h	127;"	macro
+PT_ENDED	..\user_files\inc\pt.h	60;"	macro
+PT_EXIT	..\user_files\inc\pt.h	246;"	macro
+PT_EXITED	..\user_files\inc\pt.h	59;"	macro
+PT_INIT	..\user_files\inc\pt.h	80;"	macro
+PT_RESTART	..\user_files\inc\pt.h	229;"	macro
+PT_SCHEDULE	..\user_files\inc\pt.h	271;"	macro
+PT_SPAWN	..\user_files\inc\pt.h	206;"	macro
+PT_THREAD	..\user_files\inc\pt.h	100;"	macro
+PT_WAITING	..\user_files\inc\pt.h	58;"	macro
+PT_WAIT_THREAD	..\user_files\inc\pt.h	192;"	macro
+PT_WAIT_UNTIL	..\user_files\inc\pt.h	148;"	macro
+PT_WAIT_WHILE	..\user_files\inc\pt.h	167;"	macro
+PT_YIELD	..\user_files\inc\pt.h	290;"	macro
+PT_YIELDED	..\user_files\inc\pt.h	61;"	macro
+PT_YIELD_UNTIL	..\user_files\inc\pt.h	310;"	macro
 PUKR	..\stm8s_stdperiph_driver\inc\stm8s.h	1519;"	member	struct:FLASH_struct
 Page	..\stm8s_stdperiph_driver\inc\stm8s.h	2322;"	member	struct:__anon5	typeref:union:__anon5::__anon6
 PointerAttr	..\stm8s_stdperiph_driver\inc\stm8s.h	155;"	macro
@@ -1166,8 +1192,8 @@ SET	..\stm8s_stdperiph_driver\inc\stm8s.h	232;"	enumerator	enum:__anon2
 SMCR	..\stm8s_stdperiph_driver\inc\stm8s.h	1120;"	member	struct:TIM5_struct
 SMCR	..\stm8s_stdperiph_driver\inc\stm8s.h	1259;"	member	struct:TIM6_struct
 SMCR	..\stm8s_stdperiph_driver\inc\stm8s.h	611;"	member	struct:TIM1_struct
-SPEED_SENSOR	..\user_files\src\motor.c	34;"	macro	file:
-SPEED_SENSOR_PORT	..\user_files\src\motor.c	33;"	macro	file:
+SPEED_SENSOR	..\user_files\src\motor.c	37;"	macro	file:
+SPEED_SENSOR_PORT	..\user_files\src\motor.c	36;"	macro	file:
 SPI	..\stm8s_stdperiph_driver\inc\stm8s.h	2654;"	macro
 SPI_BaseAddress	..\stm8s_stdperiph_driver\inc\stm8s.h	2573;"	macro
 SPI_CR1_BR	..\stm8s_stdperiph_driver\inc\stm8s.h	1727;"	macro
@@ -1231,10 +1257,11 @@ SWIMCCR	..\stm8s_stdperiph_driver\inc\stm8s.h	518;"	member	struct:CLK_struct
 SWR	..\stm8s_stdperiph_driver\inc\stm8s.h	509;"	member	struct:CLK_struct
 Sensor_OA_A	..\user_files\inc\motor.h	14;"	member	struct:motor_para
 Sensor_OA_B	..\user_files\inc\motor.h	15;"	member	struct:motor_para
+Sensor_OA_Scan	..\user_files\inc\motor.h	28;"	prototype	signature:(void)
+Sensor_OA_Scan	..\user_files\src\motor.c	112;"	function	signature:(void)
 Sensor_Speed	..\user_files\inc\motor.h	16;"	member	struct:motor_para
 SetBit	..\stm8s_stdperiph_driver\inc\stm8s.h	2788;"	macro
-Signal_Scan	..\user_files\src\motor.c	105;"	function	signature:(void)
-Speed_Sensor_Init	..\user_files\src\motor.c	53;"	function	file:	signature:(void)
+Speed_Sensor_Init	..\user_files\src\motor.c	56;"	function	file:	signature:(void)
 TBR	..\stm8s_stdperiph_driver\inc\stm8s.h	439;"	member	struct:AWU_struct
 TCnt_10ms	main.c	10;"	variable
 TDRH	..\stm8s_stdperiph_driver\inc\stm8s.h	322;"	member	struct:ADC1_struct
@@ -2016,7 +2043,7 @@ TimeCounters_1ms	main.c	26;"	function	signature:(void)
 Timebase_cnt	main.c	9;"	variable
 Timer1_Period	main.c	11;"	variable
 Timer_Config	main.c	16;"	prototype	file:	signature:(void)
-Timer_Config	main.c	89;"	function	signature:(void)
+Timer_Config	main.c	93;"	function	signature:(void)
 TxMailbox	..\stm8s_stdperiph_driver\inc\stm8s.h	2200;"	member	union:__anon5::__anon6	typeref:struct:__anon5::__anon6::__anon7
 U16_MAX	..\stm8s_stdperiph_driver\inc\stm8s.h	242;"	macro
 U32_MAX	..\stm8s_stdperiph_driver\inc\stm8s.h	245;"	macro
@@ -2282,8 +2309,11 @@ _MOTOR_H_	..\user_files\inc\motor.h	2;"	macro
 _RAISONANCE_	..\stm8s_stdperiph_driver\inc\stm8s.h	84;"	macro
 __I	..\stm8s_stdperiph_driver\inc\stm8s.h	205;"	macro
 __IO	..\stm8s_stdperiph_driver\inc\stm8s.h	207;"	macro
+__LC_H__	..\user_files\inc\lc.h	120;"	macro
+__LC_SWTICH_H__	..\user_files\inc\lc-switch.h	58;"	macro
 __MODS0__	..\..\..\..\..\..\..\..\program files (x86)\cosmic\32k_compilers\cxstm8\hstm8\mods0.h	11;"	macro
 __O	..\stm8s_stdperiph_driver\inc\stm8s.h	206;"	macro
+__PT_H__	..\user_files\inc\pt.h	50;"	macro
 __STM8S_CLK_H	..\stm8s_stdperiph_driver\inc\stm8s_clk.h	31;"	macro
 __STM8S_CONF_H	stm8s_conf.h	30;"	macro
 __STM8S_GPIO_H	..\stm8s_stdperiph_driver\inc\stm8s_gpio.h	30;"	macro
@@ -2299,7 +2329,7 @@ __STM8S_TIM4_H	..\stm8s_stdperiph_driver\inc\stm8s_tim4.h	30;"	macro
 _stext	stm8_interrupt_vector.c	21;"	prototype	file:
 _stext	stm8s_it.h	40;"	prototype	signature:(void)
 _vectab	stm8_interrupt_vector.c	23;"	variable
-assert_failed	main.c	140;"	function	signature:(uint8_t* file, uint32_t line)
+assert_failed	main.c	144;"	function	signature:(uint8_t* file, uint32_t line)
 assert_failed	stm8s_conf.h	108;"	prototype	signature:(uint8_t* file, uint32_t line)
 assert_param	stm8s_conf.h	106;"	macro
 assert_param	stm8s_conf.h	110;"	macro
@@ -2320,12 +2350,17 @@ interrupt_handler	stm8_interrupt_vector.c	10;"	member	struct:interrupt_vector	fi
 interrupt_handler_t	stm8_interrupt_vector.c	6;"	typedef	file:
 interrupt_instruction	stm8_interrupt_vector.c	9;"	member	struct:interrupt_vector	file:
 interrupt_vector	stm8_interrupt_vector.c	8;"	struct	file:
-main	main.c	53;"	function
+lc	..\user_files\inc\pt.h	55;"	member	struct:pt
+lc_t	..\user_files\inc\lc-switch.h	64;"	typedef
+main	main.c	57;"	function
 motor_para	..\user_files\inc\motor.h	10;"	struct
 nop	..\stm8s_stdperiph_driver\inc\stm8s.h	2719;"	macro
 nop	..\stm8s_stdperiph_driver\inc\stm8s.h	2728;"	macro
 nop	..\stm8s_stdperiph_driver\inc\stm8s.h	2738;"	macro
 o_Alarm	..\user_files\inc\motor.h	19;"	member	struct:motor_para
+pt	..\user_files\inc\pt.h	54;"	struct
+pt_Keyscan	..\user_files\src\motor.c	7;"	variable	typeref:struct:pt
+pt_Keyscan_cnt	..\user_files\src\motor.c	8;"	variable
 rim	..\stm8s_stdperiph_driver\inc\stm8s.h	2717;"	macro
 rim	..\stm8s_stdperiph_driver\inc\stm8s.h	2726;"	macro
 rim	..\stm8s_stdperiph_driver\inc\stm8s.h	2736;"	macro

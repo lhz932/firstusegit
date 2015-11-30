@@ -2,7 +2,10 @@
 #include	"stm8s.h"
 #include	"stm8s_conf.h"
 #include	"motor.h"
+#include	"pt.h"
 
+struct pt pt_Keyscan;
+uint8_t pt_Keyscan_cnt;
 /*
 	接线图：
 	功能	占用I/O
@@ -57,6 +60,7 @@ static void Speed_Sensor_Init(void)
 static void Key_Init(void)
 {
 	GPIO_Init(KEY_PORT,KEY_A|KEY_B,GPIO_MODE_IN_PU_NO_IT);
+	PT_INIT(&pt_Keyscan);
 }
 static void Alarm_Init(void)
 {
@@ -77,6 +81,8 @@ void Motor_Init(void)
 	Speed_Sensor_Init();
 	Key_Init();
 	Alarm_Init();
+	
+	
 	
 	
 }
@@ -101,10 +107,72 @@ void Motor_Stop(void)
 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN1);
 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN2);
 }
-
-void Signal_Scan(void)
+//避障传感器检测
+//低电平有效
+void Sensor_OA_Scan(void)
 {
-	GPIO_ReadInputPin(OBSTACLE_AVOIDANCE_SENSOR_PORT,OBSTACLE_AVOIDANCE_SENSOR_A);
+	if(GPIO_ReadInputPin(OBSTACLE_AVOIDANCE_SENSOR_PORT,OBSTACLE_AVOIDANCE_SENSOR_A)){	//
+		MT.Sensor_OA_A=0;	
+	}else{
+		MT.Sensor_OA_A=1;
+	}
+	if(GPIO_ReadInputPin(OBSTACLE_AVOIDANCE_SENSOR_PORT,OBSTACLE_AVOIDANCE_SENSOR_B)){	//
+		MT.Sensor_OA_B=0;	
+	}else{
+		MT.Sensor_OA_B=1;
+	}
+}
+//按键检测
+//1ms刷新
+PT_THREAD(Key_Scan(void))
+{
+	PT_BEGIN(&pt_Keyscan);
+	
+	if(GPIO_ReadInputPin(KEY_PORT,KEY_A)){	//按键动作
+		//等待至少5ms
+		pt_Keyscan_cnt=0;
+		PT_WAIT_UNTIL(&pt_Keyscan,pt_Keyscan_cnt>5);
+		if(GPIO_ReadInputPin(KEY_PORT,KEY_A)){	//有效的按键动作
+			PT_WAIT_UNTIL(&pt_Keyscan,GPIO_ReadInputPin(KEY_PORT,KEY_A)==0);	//等待按键释放
+			MT.Key_A=1;
+		}
+	}
+	if(GPIO_ReadInputPin(KEY_PORT,KEY_B)){	//按键动作
+		//等待至少5ms
+		pt_Keyscan_cnt=0;
+		PT_WAIT_UNTIL(&pt_Keyscan,pt_Keyscan_cnt>5);
+		if(GPIO_ReadInputPin(KEY_PORT,KEY_B)){
+			PT_WAIT_UNTIL(&pt_Keyscan,GPIO_ReadInputPin(KEY_PORT,KEY_B)==0);	//等待按键释放
+			MT.Key_B=1;
+		}
+	}
+	
+	PT_END(&pt_Keyscan);
+}
+
+void MT_Control(void)
+{
+	if(MT.Key_A&&(MT.Sensor_OA_A==0)){	//正向满足运行条件
+		MT.Key_A=0;	//清除按键指令	
+		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
+			Motor_Start(MOTOR_FORWARD);
+			MT.status=MT_RUNNING_FORWARD;		//更新运行状态
+		}else{														//运行状态则停止运行
+			Motor_Stop();
+			MT.status=MT_STOPPED;						//更新运行状态
+		}
+	}
+	
+	if(MT.Key_B&&(MT.Sensor_OA_B==0)){	//反向满足运行条件
+		MT.Key_B=0;	//清除按键指令	
+		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
+			Motor_Start(MOTOR_BACKWARD);
+			MT.status=MT_RUNNING_BACKWARD;		//更新运行状态
+		}else{														//运行状态则停止运行
+			Motor_Stop();
+			MT.status=MT_STOPPED;						//更新运行状态
+		}
+	}
 }
 
 

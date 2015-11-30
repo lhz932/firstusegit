@@ -16,5 +16,8 @@ stm8s_it.h
 ..\stm8s_stdperiph_driver\inc\stm8s_tim1.h
 ..\stm8s_stdperiph_driver\inc\stm8s_tim4.h
 ..\user_files\inc\indicator_light.h
+..\user_files\inc\lc-switch.h
+..\user_files\inc\lc.h
 ..\user_files\inc\motor.h
+..\user_files\inc\pt.h
 main.h

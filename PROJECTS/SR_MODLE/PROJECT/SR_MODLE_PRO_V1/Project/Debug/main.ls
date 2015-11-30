@@ -13,175 +13,181 @@
   57  0000               _Tasks_1ms_TimeCritical:
   61                     ; 24 }
   64  0000 81            	ret	
-  89                     ; 26 void TimeCounters_1ms(void)
-  89                     ; 27 {
-  90                     .text:	section	.text,new
-  91  0000               _TimeCounters_1ms:
-  95                     ; 28 	if(Timebase_cnt>0)
-  97  0000 3d00          	tnz	_Timebase_cnt
-  98  0002 2704          	jreq	L13
-  99                     ; 30 		Timebase_cnt--;
- 101  0004 3a00          	dec	_Timebase_cnt
- 102                     ; 31 		TCnt_10ms++;
- 104  0006 3c00          	inc	_TCnt_10ms
- 105  0008               L13:
- 106                     ; 38 }
- 109  0008 81            	ret	
- 134                     ; 40 void TimeCounters_10ms(void)
- 134                     ; 41 {
- 135                     .text:	section	.text,new
- 136  0000               _TimeCounters_10ms:
- 140                     ; 42 	if(TCnt_10ms>9)
- 142  0000 b600          	ld	a,_TCnt_10ms
- 143  0002 a00a          	sub	a,#10
- 144  0004 2504          	jrult	L34
- 145                     ; 44 		TCnt_10ms-=10;
- 147  0006 b700          	ld	_TCnt_10ms,a
- 148                     ; 47 		Indcator_cnt++;
- 150  0008 3c00          	inc	_Indcator_cnt
- 151  000a               L34:
- 152                     ; 55 }
- 155  000a 81            	ret	
- 186                     ; 57 main()
- 186                     ; 58 {
- 187                     .text:	section	.text,new
- 188  0000               _main:
- 192                     ; 59 	GPIO_Config_SystemOn();
- 194  0000 cd0000        	call	_GPIO_Config_SystemOn
- 196                     ; 60 	CLK_Config();	//Configure the Fcpu to 8MHz,Fmaster=8MHz	
- 198  0003 cd0000        	call	_CLK_Config
- 200                     ; 61 	Timer_Config();
- 202  0006 cd0000        	call	_Timer_Config
- 204                     ; 62 	Motor_Init();
- 206  0009 cd0000        	call	_Motor_Init
- 208                     ; 64 	Indicator_Init();
- 210  000c cd0000        	call	_Indicator_Init
- 212  000f               L55:
- 213                     ; 68 			TimeCounters_1ms();
- 215  000f cd0000        	call	_TimeCounters_1ms
- 217                     ; 69 			TimeCounters_10ms();
- 219  0012 cd0000        	call	_TimeCounters_10ms
- 221                     ; 71 			Indicator_Running();
- 223  0015 cd0000        	call	_Indicator_Running
- 226  0018 20f5          	jra	L55
- 251                     ; 77 void GPIO_Config_SystemOn(void)
- 251                     ; 78 {
- 252                     .text:	section	.text,new
- 253  0000               _GPIO_Config_SystemOn:
- 257                     ; 80 	GPIO_Init(GPIOA,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);
- 259  0000 4b40          	push	#64
- 260  0002 4bff          	push	#255
- 261  0004 ae5000        	ldw	x,#20480
- 262  0007 cd0000        	call	_GPIO_Init
- 264  000a 85            	popw	x
- 265                     ; 81 	GPIO_Init(GPIOB,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);
- 267  000b 4b40          	push	#64
- 268  000d 4bff          	push	#255
- 269  000f ae5005        	ldw	x,#20485
- 270  0012 cd0000        	call	_GPIO_Init
- 272  0015 85            	popw	x
- 273                     ; 82 	GPIO_Init(GPIOC,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);
- 275  0016 4b40          	push	#64
- 276  0018 4bff          	push	#255
- 277  001a ae500a        	ldw	x,#20490
- 278  001d cd0000        	call	_GPIO_Init
- 280  0020 85            	popw	x
- 281                     ; 83 	GPIO_Init(GPIOD,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);	
- 283  0021 4b40          	push	#64
- 284  0023 4bff          	push	#255
- 285  0025 ae500f        	ldw	x,#20495
- 286  0028 cd0000        	call	_GPIO_Init
- 288  002b 85            	popw	x
- 289                     ; 84 }
- 292  002c 81            	ret	
- 317                     ; 86 void CLK_Config(void)
- 317                     ; 87 {
- 318                     .text:	section	.text,new
- 319  0000               _CLK_Config:
- 323                     ; 88   CLK_DeInit();  
- 325  0000 cd0000        	call	_CLK_DeInit
- 327                     ; 90 	CLK_SYSCLKConfig(CLK_PRESCALER_HSIDIV2);
- 329  0003 a608          	ld	a,#8
- 331                     ; 92 }
- 334  0005 cc0000        	jp	_CLK_SYSCLKConfig
- 366                     ; 93 void 	Timer_Config(void)
- 366                     ; 94 {
- 367                     .text:	section	.text,new
- 368  0000               _Timer_Config:
- 372                     ; 96 	TIM1_DeInit();
- 374  0000 cd0000        	call	_TIM1_DeInit
- 376                     ; 97 	TIM1_TimeBaseInit(	0,																	//不分频，即8MHZ
- 376                     ; 98 											TIM1_COUNTERMODE_CENTERALIGNED1 ,		//中央对齐模式
- 376                     ; 99 											200,																//设置输出频率 20K
- 376                     ; 100 											0);																	//重复计数器
- 378  0003 4b00          	push	#0
- 379  0005 ae00c8        	ldw	x,#200
- 380  0008 89            	pushw	x
- 381  0009 4b20          	push	#32
- 382  000b 5f            	clrw	x
- 383  000c cd0000        	call	_TIM1_TimeBaseInit
- 385  000f 5b04          	addw	sp,#4
- 386                     ; 101 	TIM1_OC3Init(	TIM1_OCMODE_PWM2,													//TIM1_CNT<TIM1_CCR1时为无效电平
- 386                     ; 102 								TIM1_OUTPUTSTATE_ENABLE, 									//OC3信号输出到引脚
- 386                     ; 103 								TIM1_OUTPUTNSTATE_DISABLE,								//
- 386                     ; 104 								Timer1_Period,														//设置占空比
- 386                     ; 105 								TIM1_OCPOLARITY_LOW,											//OC1高电平有效
- 386                     ; 106 								TIM1_OCNPOLARITY_LOW,
- 386                     ; 107 								TIM1_OCIDLESTATE_RESET,										//空闲状态OC1=0							
- 386                     ; 108 								
- 386                     ; 109 								TIM1_OCNIDLESTATE_RESET);
- 388  0011 4b00          	push	#0
- 389  0013 4b00          	push	#0
- 390  0015 4b88          	push	#136
- 391  0017 4b22          	push	#34
- 392  0019 b601          	ld	a,_Timer1_Period
- 393  001b 5f            	clrw	x
- 394  001c 97            	ld	xl,a
- 395  001d 89            	pushw	x
- 396  001e 4b00          	push	#0
- 397  0020 ae7011        	ldw	x,#28689
- 398  0023 cd0000        	call	_TIM1_OC3Init
- 400  0026 5b07          	addw	sp,#7
- 401                     ; 119 	TIM4_TimeBaseInit(TIM4_PRESCALER_32,249);	//1ms---(x-1)*32=8000
- 403  0028 ae05f9        	ldw	x,#1529
- 404  002b cd0000        	call	_TIM4_TimeBaseInit
- 406                     ; 121   TIM4_ClearFlag(TIM4_FLAG_UPDATE);
- 408  002e a601          	ld	a,#1
- 409  0030 cd0000        	call	_TIM4_ClearFlag
- 411                     ; 123   TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);  
- 413  0033 ae0101        	ldw	x,#257
- 414  0036 cd0000        	call	_TIM4_ITConfig
- 416                     ; 125   enableInterrupts();
- 419  0039 9a            	rim	
- 421                     ; 128   TIM4_Cmd(ENABLE);
- 424  003a a601          	ld	a,#1
- 426                     ; 132 }
- 429  003c cc0000        	jp	_TIM4_Cmd
- 471                     	xdef	_main
- 472                     	xdef	_Tasks_1ms_TimeCritical
- 473                     	xdef	_TimeCounters_10ms
- 474                     	xdef	_TimeCounters_1ms
- 475                     	xdef	_Timer_Config
- 476                     	xdef	_CLK_Config
- 477                     	xdef	_GPIO_Config_SystemOn
- 478                     	xdef	_Timer1_Period
- 479                     	switch	.ubsct
- 480  0000               _TCnt_10ms:
- 481  0000 00            	ds.b	1
- 482                     	xdef	_TCnt_10ms
- 483                     	xdef	_Timebase_cnt
- 484                     	xref	_Motor_Init
- 485                     	xref	_Indicator_Running
- 486                     	xref	_Indicator_Init
- 487                     	xref.b	_Indcator_cnt
- 488                     	xref	_TIM4_ClearFlag
- 489                     	xref	_TIM4_ITConfig
- 490                     	xref	_TIM4_Cmd
- 491                     	xref	_TIM4_TimeBaseInit
- 492                     	xref	_TIM1_OC3Init
- 493                     	xref	_TIM1_TimeBaseInit
- 494                     	xref	_TIM1_DeInit
- 495                     	xref	_GPIO_Init
- 496                     	xref	_CLK_SYSCLKConfig
- 497                     	xref	_CLK_DeInit
- 517                     	end
+  90                     ; 26 void TimeCounters_1ms(void)
+  90                     ; 27 {
+  91                     .text:	section	.text,new
+  92  0000               _TimeCounters_1ms:
+  96                     ; 28 	if(Timebase_cnt>0)
+  98  0000 3d00          	tnz	_Timebase_cnt
+  99  0002 2706          	jreq	L13
+ 100                     ; 30 		Timebase_cnt--;
+ 102  0004 3a00          	dec	_Timebase_cnt
+ 103                     ; 31 		TCnt_10ms++;
+ 105  0006 3c00          	inc	_TCnt_10ms
+ 106                     ; 34 		pt_Keyscan_cnt++;
+ 108  0008 3c00          	inc	_pt_Keyscan_cnt
+ 109  000a               L13:
+ 110                     ; 38 }
+ 113  000a 81            	ret	
+ 140                     ; 40 void TimeCounters_10ms(void)
+ 140                     ; 41 {
+ 141                     .text:	section	.text,new
+ 142  0000               _TimeCounters_10ms:
+ 146                     ; 42 	if(TCnt_10ms>9)
+ 148  0000 b600          	ld	a,_TCnt_10ms
+ 149  0002 a00a          	sub	a,#10
+ 150  0004 250a          	jrult	L34
+ 151                     ; 44 		TCnt_10ms-=10;
+ 153  0006 b700          	ld	_TCnt_10ms,a
+ 154                     ; 47 		Indcator_cnt++;
+ 156  0008 3c00          	inc	_Indcator_cnt
+ 157                     ; 51 		Sensor_OA_Scan();
+ 159  000a cd0000        	call	_Sensor_OA_Scan
+ 161                     ; 52 		MT_Control();
+ 163  000d cd0000        	call	_MT_Control
+ 165  0010               L34:
+ 166                     ; 55 }
+ 169  0010 81            	ret	
+ 199                     ; 57 main()
+ 199                     ; 58 {
+ 200                     .text:	section	.text,new
+ 201  0000               _main:
+ 205                     ; 59 	GPIO_Config_SystemOn();
+ 207  0000 cd0000        	call	_GPIO_Config_SystemOn
+ 209                     ; 60 	CLK_Config();	//Configure the Fcpu to 8MHz,Fmaster=8MHz	
+ 211  0003 cd0000        	call	_CLK_Config
+ 213                     ; 61 	Timer_Config();
+ 215  0006 cd0000        	call	_Timer_Config
+ 217                     ; 62 	Motor_Init();
+ 219  0009 cd0000        	call	_Motor_Init
+ 221  000c               L55:
+ 222                     ; 68 			TimeCounters_1ms();
+ 224  000c cd0000        	call	_TimeCounters_1ms
+ 226                     ; 69 			TimeCounters_10ms();
+ 228  000f cd0000        	call	_TimeCounters_10ms
+ 230                     ; 73 			Key_Scan();
+ 232  0012 cd0000        	call	_Key_Scan
+ 235  0015 20f5          	jra	L55
+ 260                     ; 79 void GPIO_Config_SystemOn(void)
+ 260                     ; 80 {
+ 261                     .text:	section	.text,new
+ 262  0000               _GPIO_Config_SystemOn:
+ 266                     ; 82 	GPIO_Init(GPIOA,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);
+ 268  0000 4b40          	push	#64
+ 269  0002 4bff          	push	#255
+ 270  0004 ae5000        	ldw	x,#20480
+ 271  0007 cd0000        	call	_GPIO_Init
+ 273  000a 85            	popw	x
+ 274                     ; 83 	GPIO_Init(GPIOB,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);
+ 276  000b 4b40          	push	#64
+ 277  000d 4bff          	push	#255
+ 278  000f ae5005        	ldw	x,#20485
+ 279  0012 cd0000        	call	_GPIO_Init
+ 281  0015 85            	popw	x
+ 282                     ; 84 	GPIO_Init(GPIOC,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);
+ 284  0016 4b40          	push	#64
+ 285  0018 4bff          	push	#255
+ 286  001a ae500a        	ldw	x,#20490
+ 287  001d cd0000        	call	_GPIO_Init
+ 289  0020 85            	popw	x
+ 290                     ; 85 	GPIO_Init(GPIOD,GPIO_PIN_ALL,GPIO_MODE_IN_PU_NO_IT);	
+ 292  0021 4b40          	push	#64
+ 293  0023 4bff          	push	#255
+ 294  0025 ae500f        	ldw	x,#20495
+ 295  0028 cd0000        	call	_GPIO_Init
+ 297  002b 85            	popw	x
+ 298                     ; 86 }
+ 301  002c 81            	ret	
+ 326                     ; 88 void CLK_Config(void)
+ 326                     ; 89 {
+ 327                     .text:	section	.text,new
+ 328  0000               _CLK_Config:
+ 332                     ; 90   CLK_DeInit();  
+ 334  0000 cd0000        	call	_CLK_DeInit
+ 336                     ; 92 	CLK_SYSCLKConfig(CLK_PRESCALER_HSIDIV2);
+ 338  0003 a608          	ld	a,#8
+ 340                     ; 94 }
+ 343  0005 cc0000        	jp	_CLK_SYSCLKConfig
+ 375                     ; 95 void 	Timer_Config(void)
+ 375                     ; 96 {
+ 376                     .text:	section	.text,new
+ 377  0000               _Timer_Config:
+ 381                     ; 98 	TIM1_DeInit();
+ 383  0000 cd0000        	call	_TIM1_DeInit
+ 385                     ; 99 	TIM1_TimeBaseInit(	0,																	//不分频，即8MHZ
+ 385                     ; 100 											TIM1_COUNTERMODE_CENTERALIGNED1 ,		//中央对齐模式
+ 385                     ; 101 											200,																//设置输出频率 20K
+ 385                     ; 102 											0);																	//重复计数器
+ 387  0003 4b00          	push	#0
+ 388  0005 ae00c8        	ldw	x,#200
+ 389  0008 89            	pushw	x
+ 390  0009 4b20          	push	#32
+ 391  000b 5f            	clrw	x
+ 392  000c cd0000        	call	_TIM1_TimeBaseInit
+ 394  000f 5b04          	addw	sp,#4
+ 395                     ; 103 	TIM1_OC3Init(	TIM1_OCMODE_PWM2,													//TIM1_CNT<TIM1_CCR1时为无效电平
+ 395                     ; 104 								TIM1_OUTPUTSTATE_ENABLE, 									//OC3信号输出到引脚
+ 395                     ; 105 								TIM1_OUTPUTNSTATE_DISABLE,								//
+ 395                     ; 106 								Timer1_Period,														//设置占空比
+ 395                     ; 107 								TIM1_OCPOLARITY_LOW,											//OC1高电平有效
+ 395                     ; 108 								TIM1_OCNPOLARITY_LOW,
+ 395                     ; 109 								TIM1_OCIDLESTATE_RESET,										//空闲状态OC1=0							
+ 395                     ; 110 								
+ 395                     ; 111 								TIM1_OCNIDLESTATE_RESET);
+ 397  0011 4b00          	push	#0
+ 398  0013 4b00          	push	#0
+ 399  0015 4b88          	push	#136
+ 400  0017 4b22          	push	#34
+ 401  0019 b601          	ld	a,_Timer1_Period
+ 402  001b 5f            	clrw	x
+ 403  001c 97            	ld	xl,a
+ 404  001d 89            	pushw	x
+ 405  001e 4b00          	push	#0
+ 406  0020 ae7011        	ldw	x,#28689
+ 407  0023 cd0000        	call	_TIM1_OC3Init
+ 409  0026 5b07          	addw	sp,#7
+ 410                     ; 121 	TIM4_TimeBaseInit(TIM4_PRESCALER_32,249);	//1ms---(x-1)*32=8000
+ 412  0028 ae05f9        	ldw	x,#1529
+ 413  002b cd0000        	call	_TIM4_TimeBaseInit
+ 415                     ; 123   TIM4_ClearFlag(TIM4_FLAG_UPDATE);
+ 417  002e a601          	ld	a,#1
+ 418  0030 cd0000        	call	_TIM4_ClearFlag
+ 420                     ; 125   TIM4_ITConfig(TIM4_IT_UPDATE, ENABLE);  
+ 422  0033 ae0101        	ldw	x,#257
+ 423  0036 cd0000        	call	_TIM4_ITConfig
+ 425                     ; 127   enableInterrupts();
+ 428  0039 9a            	rim	
+ 430                     ; 130   TIM4_Cmd(ENABLE);
+ 433  003a a601          	ld	a,#1
+ 435                     ; 134 }
+ 438  003c cc0000        	jp	_TIM4_Cmd
+ 480                     	xdef	_main
+ 481                     	xdef	_Tasks_1ms_TimeCritical
+ 482                     	xdef	_TimeCounters_10ms
+ 483                     	xdef	_TimeCounters_1ms
+ 484                     	xdef	_Timer_Config
+ 485                     	xdef	_CLK_Config
+ 486                     	xdef	_GPIO_Config_SystemOn
+ 487                     	xdef	_Timer1_Period
+ 488                     	switch	.ubsct
+ 489  0000               _TCnt_10ms:
+ 490  0000 00            	ds.b	1
+ 491                     	xdef	_TCnt_10ms
+ 492                     	xdef	_Timebase_cnt
+ 493                     	xref	_MT_Control
+ 494                     	xref	_Key_Scan
+ 495                     	xref	_Sensor_OA_Scan
+ 496                     	xref	_Motor_Init
+ 497                     	xref.b	_pt_Keyscan_cnt
+ 498                     	xref.b	_Indcator_cnt
+ 499                     	xref	_TIM4_ClearFlag
+ 500                     	xref	_TIM4_ITConfig
+ 501                     	xref	_TIM4_Cmd
+ 502                     	xref	_TIM4_TimeBaseInit
+ 503                     	xref	_TIM1_OC3Init
+ 504                     	xref	_TIM1_TimeBaseInit
+ 505                     	xref	_TIM1_DeInit
+ 506                     	xref	_GPIO_Init
+ 507                     	xref	_CLK_SYSCLKConfig
+ 508                     	xref	_CLK_DeInit
+ 528                     	end

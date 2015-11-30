@@ -31,7 +31,7 @@ void TimeCounters_1ms(void)
 		TCnt_10ms++;
 		
 		//write your counters
-		
+		pt_Keyscan_cnt++;
 		
 	}
 	
@@ -48,8 +48,8 @@ void TimeCounters_10ms(void)
 		
 		
 		//write your app
-		
-		
+		Sensor_OA_Scan();
+		MT_Control();
 	}
 	
 }
@@ -61,14 +61,16 @@ main()
 	Timer_Config();
 	Motor_Init();
 	
-	Indicator_Init();
+//	Indicator_Init();
 	
 	while (1)
 	{
 			TimeCounters_1ms();
 			TimeCounters_10ms();
 			
-			Indicator_Running();
+		//	Indicator_Running();
+			
+			Key_Scan();
 			
 	}
 }
