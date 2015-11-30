@@ -82,10 +82,10 @@ String.100.0=STM8S103F3P
 
 [Root.Config.0.Settings.3]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +mods0 -customDebCompat -customOpt -no +split -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2015,11,26,20,23,16
+String.6.0=2015,11,27,23,15,59
 
 [Root.Config.0.Settings.4]
 String.2.0=Assembling $(InputFile)...
@@ -242,10 +242,10 @@ Int.1=0
 
 [Root.Source Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +mods0 -customDebCompat -customOpt +split -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2015,11,26,20,23,16
+String.6.0=2015,11,27,23,15,59
 
 [Root.Source Files.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -330,10 +330,10 @@ Int.1=0
 
 [Root.Include Files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +mods0 -customDebCompat -customOpt +split -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2015,11,26,20,23,16
+String.6.0=2015,11,27,23,15,59
 
 [Root.Include Files.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -413,10 +413,10 @@ Int.1=0
 
 [Root.StdPeriph_Driver.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +mods0 -customDebCompat -customOpt +split -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2015,11,26,20,23,16
+String.6.0=2015,11,27,23,15,59
 
 [Root.StdPeriph_Driver.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -467,6 +467,11 @@ Next=Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_gpio.c
 [Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_gpio.c]
 ElemType=File
 PathName=..\stm8s_stdperiph_driver\src\stm8s_gpio.c
+Next=Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_tim1.c
+
+[Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_tim1.c]
+ElemType=File
+PathName=..\stm8s_stdperiph_driver\src\stm8s_tim1.c
 Next=Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_tim4.c
 
 [Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_tim4.c]
@@ -500,10 +505,10 @@ Int.1=0
 
 [Root.User files.Config.0.Settings.1]
 String.2.0=Compiling $(InputFile)...
-String.3.0=cxstm8 +mods0 -customDebCompat -customOpt-no -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
+String.3.0=cxstm8 +mods0 -customDebCompat -customOpt +split -customC-pp -customLst -l -dSTM8S103 $(ToolsetIncOpts) -cl$(IntermPath) -co$(IntermPath) $(InputFile)
 String.4.0=$(IntermPath)$(InputName).$(ObjectExt)
 String.5.0=$(IntermPath)$(InputName).ls
-String.6.0=2015,11,26,20,23,16
+String.6.0=2015,11,27,23,15,59
 
 [Root.User files.Config.0.Settings.2]
 String.2.0=Assembling $(InputFile)...
@@ -549,3 +554,8 @@ String.6.0=2015,11,26,20,7,19
 [Root.User files...\user_files\src\indicator_light.c]
 ElemType=File
 PathName=..\user_files\src\indicator_light.c
+Next=Root.User files...\user_files\src\motor.c
+
+[Root.User files...\user_files\src\motor.c]
+ElemType=File
+PathName=..\user_files\src\motor.c

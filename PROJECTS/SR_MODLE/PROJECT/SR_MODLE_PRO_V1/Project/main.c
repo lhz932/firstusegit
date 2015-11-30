@@ -4,8 +4,12 @@
  */
 #include "stm8s_conf.h"
 #include	"indicator_light.h"
+#include	"motor.h"
+
 volatile uint8_t Timebase_cnt=0;
 uint8_t TCnt_10ms;
+volatile uint8_t Timer1_Period=180;
+
 
 void 	GPIO_Config_SystemOn(void);
 void 	CLK_Config(void);
@@ -42,6 +46,10 @@ void TimeCounters_10ms(void)
 		//write your counters
 		Indcator_cnt++;
 		
+		
+		//write your app
+		
+		
 	}
 	
 }
@@ -51,6 +59,7 @@ main()
 	GPIO_Config_SystemOn();
 	CLK_Config();	//Configure the Fcpu to 8MHz,Fmaster=8MHz	
 	Timer_Config();
+	Motor_Init();
 	
 	Indicator_Init();
 	
@@ -92,14 +101,14 @@ void 	Timer_Config(void)
 	TIM1_OC3Init(	TIM1_OCMODE_PWM2,													//TIM1_CNT<TIM1_CCR1时为无效电平
 								TIM1_OUTPUTSTATE_ENABLE, 									//OC3信号输出到引脚
 								TIM1_OUTPUTNSTATE_DISABLE,								//
-								120,																			//设置占空比
+								Timer1_Period,														//设置占空比
 								TIM1_OCPOLARITY_LOW,											//OC1高电平有效
 								TIM1_OCNPOLARITY_LOW,
 								TIM1_OCIDLESTATE_RESET,										//空闲状态OC1=0							
 								
 								TIM1_OCNIDLESTATE_RESET);
-	 TIM1_Cmd(ENABLE);																			//使能计数器
-	 TIM1_CtrlPWMOutputs(ENABLE);														// TIM1 Main Output Enable
+	 //TIM1_Cmd(ENABLE);																			//使能计数器
+	 //TIM1_CtrlPWMOutputs(ENABLE);														// TIM1 Main Output Enable
 
 
 							
