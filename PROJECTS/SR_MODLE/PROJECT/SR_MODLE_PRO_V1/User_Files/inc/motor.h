@@ -30,6 +30,7 @@ typedef struct motor_para{
 } Motor_Para;
 
 extern uint8_t pt_Keyscan_cnt;
+extern uint8_t pt_Alarm_Speaker_cnt;
 
 void Motor_Init(void);
 
@@ -39,4 +40,5 @@ void Motor_Stop(void);
 void Sensor_OA_Scan(void);
 PT_THREAD(Key_Scan(void));
 void MT_Control(void);
+void Alarm(void);
 #endif

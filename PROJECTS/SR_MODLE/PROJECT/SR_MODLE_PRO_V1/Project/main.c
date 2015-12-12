@@ -8,7 +8,7 @@
 
 volatile uint8_t Timebase_cnt=0;
 uint8_t TCnt_10ms;
-volatile uint8_t Timer1_Period=180;
+volatile uint8_t Timer1_Period=135;
 
 
 void 	GPIO_Config_SystemOn(void);
@@ -45,7 +45,7 @@ void TimeCounters_10ms(void)
 		
 		//write your counters
 		Indcator_cnt++;
-		
+		pt_Alarm_Speaker_cnt++;
 		
 		//write your app
 		Sensor_OA_Scan();
@@ -64,13 +64,14 @@ main()
 //	Indicator_Init();
 	
 	while (1)
-	{
+	{		
 			TimeCounters_1ms();
 			TimeCounters_10ms();
 			
 		//	Indicator_Running();
 			
 			Key_Scan();
+			Alarm();
 			
 	}
 }

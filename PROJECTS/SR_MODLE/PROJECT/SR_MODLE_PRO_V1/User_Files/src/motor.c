@@ -6,6 +6,12 @@
 
 struct pt pt_Keyscan;
 uint8_t pt_Keyscan_cnt;
+
+struct pt pt_Alarm_Speaker;
+uint8_t pt_Alarm_Speaker_cnt;
+
+struct pt pt_Alarm_Light;
+uint8_t pt_Alarm_Light_cnt;
 /*
 	接线图：
 	功能	占用I/O
@@ -13,7 +19,7 @@ uint8_t pt_Keyscan_cnt;
 	避障		2个		PA1，PA2	低电平有效
 	测速		1个		PD4				高电平有效
 	报警		1个		PA3				低电平有效
-	电机		3个		PB4，PB5,PC3
+	电机		3个		PD5，PD6,PC3
 	SPI			3个 	PC5，PC6，PC7
   UART		2个 	PD5，PD6 	
 	
@@ -25,8 +31,8 @@ uint8_t pt_Keyscan_cnt;
 #define	MOTOR_PWM				GPIO_PIN_3	
 #define	L298N_ENA				MOTOR_PWM
 
-#define	L298N_IN_PORT		GPIOB			
-#define	L298N_IN1				GPIO_PIN_4
+#define	L298N_IN_PORT		GPIOD			
+#define	L298N_IN1				GPIO_PIN_6
 #define	L298N_IN2				GPIO_PIN_5
 
 #define	OBSTACLE_AVOIDANCE_SENSOR_PORT	GPIOA
@@ -65,6 +71,9 @@ static void Key_Init(void)
 static void Alarm_Init(void)
 {
 	GPIO_Init(ALARM_PORT,ALARM,GPIO_MODE_OUT_PP_HIGH_SLOW);
+	
+	PT_INIT(&pt_Alarm_Speaker);
+	PT_INIT(&pt_Alarm_Light);
 }
 
 
@@ -172,6 +181,45 @@ void MT_Control(void)
 			Motor_Stop();
 			MT.status=MT_STOPPED;						//更新运行状态
 		}
+	}
+	
+	if((MT.status==MT_RUNNING_FORWARD)&&(MT.Sensor_OA_A==1))	//正向急停
+	{
+		Motor_Stop();
+		MT.status=MT_STOPPED;						//更新运行状态
+	}
+	if((MT.status==MT_RUNNING_BACKWARD)&&(MT.Sensor_OA_B==1))	//反向急停
+	{
+		Motor_Stop();
+		MT.status=MT_STOPPED;						//更新运行状态
+	}
+	
+	
+}
+PT_THREAD(Alarm_Speaker(void))
+{
+	PT_BEGIN(&pt_Alarm_Speaker);
+	
+	pt_Alarm_Speaker_cnt=0;
+	PT_WAIT_UNTIL(&pt_Alarm_Speaker,pt_Alarm_Speaker_cnt>30);
+	GPIO_WriteLow(ALARM_PORT,ALARM);
+	
+	pt_Alarm_Speaker_cnt=0;
+	PT_WAIT_UNTIL(&pt_Alarm_Speaker,pt_Alarm_Speaker_cnt>50);
+	GPIO_WriteHigh(ALARM_PORT,ALARM);
+	
+	PT_END(&pt_Alarm_Speaker);
+	
+}
+
+
+void Alarm(void)
+{
+	if(MT.status&0x01)	//if running
+	{
+		Alarm_Speaker();
+	}else{
+		GPIO_WriteHigh(ALARM_PORT,ALARM);
 	}
 }
 
