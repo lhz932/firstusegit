@@ -8,7 +8,7 @@
 
 volatile uint8_t Timebase_cnt=0;
 uint8_t TCnt_10ms;
-volatile uint8_t Timer1_Period=135;
+volatile uint8_t Timer1_Period=150;
 
 
 void 	GPIO_Config_SystemOn(void);

@@ -15,13 +15,13 @@ uint8_t pt_Alarm_Light_cnt;
 /*
 	接线图：
 	功能	占用I/O
-	按键		2个		PD2，PD3	高电平有效
+	按键		2个		PB4，PB5	高电平有效
 	避障		2个		PA1，PA2	低电平有效
-	测速		1个		PD4				高电平有效
-	报警		1个		PA3				低电平有效
+	测速		1个		PA3				高电平有效
+	报警		1个		PD4				低电平有效
 	电机		3个		PD5，PD6,PC3
 	SPI			3个 	PC5，PC6，PC7
-  UART		2个 	PD5，PD6 	
+  
 	
 	
 */
@@ -32,22 +32,22 @@ uint8_t pt_Alarm_Light_cnt;
 #define	L298N_ENA				MOTOR_PWM
 
 #define	L298N_IN_PORT		GPIOD			
-#define	L298N_IN1				GPIO_PIN_6
-#define	L298N_IN2				GPIO_PIN_5
+#define	L298N_IN1				GPIO_PIN_5
+#define	L298N_IN2				GPIO_PIN_6
 
 #define	OBSTACLE_AVOIDANCE_SENSOR_PORT	GPIOA
 #define	OBSTACLE_AVOIDANCE_SENSOR_A			GPIO_PIN_1
 #define	OBSTACLE_AVOIDANCE_SENSOR_B			GPIO_PIN_2
 
-#define	SPEED_SENSOR_PORT								GPIOD
-#define	SPEED_SENSOR										GPIO_PIN_4
+#define	SPEED_SENSOR_PORT								GPIOA
+#define	SPEED_SENSOR										GPIO_PIN_3
 
-#define	KEY_PORT												GPIOD
-#define	KEY_A														GPIO_PIN_2
-#define	KEY_B														GPIO_PIN_3
+#define	KEY_PORT												GPIOB
+#define	KEY_A														GPIO_PIN_4
+#define	KEY_B														GPIO_PIN_5
 
-#define	ALARM_PORT											GPIOA
-#define	ALARM														GPIO_PIN_3
+#define	ALARM_PORT											GPIOD
+#define	ALARM														GPIO_PIN_4
 
 
 Motor_Para MT={0};

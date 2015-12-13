@@ -14,8 +14,8 @@
 	NRF24L01	5个		PC5，PC6，PC7,	PD2，PD3
 						(SPI)
 	
-	红外		1个		PD1(SWIM)
-	闪光灯		1个		PC4
+	红外		1个		PC4
+	闪光灯		1个		PD1
 	
 	
 */
