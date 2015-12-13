@@ -55,6 +55,7 @@ Release\stm8s_it.o
 Release\stm8s_clk.o
 Release\stm8s_gpio.o
 Release\stm8s_tim1.o
+Release\stm8s_tim2.o
 Release\stm8s_tim4.o
 Release\indicator_light.o
 Release\motor.o

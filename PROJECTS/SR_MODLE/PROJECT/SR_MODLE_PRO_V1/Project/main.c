@@ -2,6 +2,13 @@
  * 
  * Copyright (c) 2002-2005 STMicroelectronics
  */
+ 
+ /*
+ 说明：
+ 1.时钟：
+				主时钟：8MHZ;	CPU时钟：8MHZ;
+ */
+ 
 #include "stm8s_conf.h"
 #include	"indicator_light.h"
 #include	"motor.h"
@@ -113,9 +120,19 @@ void 	Timer_Config(void)
 	 //TIM1_Cmd(ENABLE);																			//使能计数器
 	 //TIM1_CtrlPWMOutputs(ENABLE);														// TIM1 Main Output Enable
 
-
+	/*Timer2 config*/
+	TIM2_DeInit();
+	/* Time base configuration */ 	
+	TIM2_TimeBaseInit(TIM2_PRESCALER_64, 65535);	//timer2的时钟：125KHZ
+	TIM2_ICInit(TIM2_CHANNEL_3,										//
+							TIM2_ICPOLARITY_FALLING,					//下降沿捕获
+							TIM2_ICSELECTION_DIRECTTI,	//CC1 channel is configured as input, IC1 is mapped on TI1FP1
+							TIM2_ICPSC_DIV1,	//No prescaler, capture is made each time an edge is detected on the capture input
+							3);																//滤波采样8次
 							
-								
+	TIM2_ITConfig(TIM2_IT_CC3|TIM2_IT_UPDATE,ENABLE);	//使能更新中断和捕获中断
+	TIM2_Cmd(ENABLE);
+
 								
 	
 	/*Timer4 config*/	

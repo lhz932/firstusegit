@@ -4,20 +4,12 @@
 #include	"motor.h"
 #include	"pt.h"
 
-struct pt pt_Keyscan;
-uint8_t pt_Keyscan_cnt;
-
-struct pt pt_Alarm_Speaker;
-uint8_t pt_Alarm_Speaker_cnt;
-
-struct pt pt_Alarm_Light;
-uint8_t pt_Alarm_Light_cnt;
 /*
 	接线图：
 	功能	占用I/O
 	按键		2个		PB4，PB5	高电平有效
 	避障		2个		PA1，PA2	低电平有效
-	测速		1个		PA3				高电平有效
+	测速		1个		PA3				高电平有效,无遮挡亮，输出低电平
 	报警		1个		PD4				低电平有效
 	电机		3个		PD5，PD6,PC3
 	SPI			3个 	PC5，PC6，PC7
@@ -50,7 +42,23 @@ uint8_t pt_Alarm_Light_cnt;
 #define	ALARM														GPIO_PIN_4
 
 
+
+//Variables
 Motor_Para MT={0};
+volatile 	Speed_Pulse_Status_Typedef Speed_Pulse_Status=SPEED_NO_PULSE;
+volatile 	uint16_t Speed_Origin;	//速度数据原始数据，即TIMER2的捕获数据
+volatile	uint16_t Speed_Pulse_cnt;	//脉冲计数
+//Functions
+struct pt pt_Keyscan;
+uint8_t pt_Keyscan_cnt;
+
+struct pt pt_Alarm_Speaker;
+uint8_t pt_Alarm_Speaker_cnt;
+
+struct pt pt_Alarm_Light;
+uint8_t pt_Alarm_Light_cnt;
+
+
 
 static void Obstacle_Avoidance_Sensor_Init(void)
 {
@@ -159,6 +167,9 @@ PT_THREAD(Key_Scan(void))
 	PT_END(&pt_Keyscan);
 }
 
+
+
+/*--------------------------------------------------------------------*/
 void MT_Control(void)
 {
 	if(MT.Key_A&&(MT.Sensor_OA_A==0)){	//正向满足运行条件

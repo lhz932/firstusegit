@@ -16,6 +16,13 @@ typedef enum
 	MT_RUNNING_BACKWARD=0X11
 }Motor_Status_Typedef;
 
+typedef enum
+{
+	SPEED_NO_PULSE=0X00,
+	SPEED_FIRST_PULSE=0X01,
+	SPEED_OK=0X02
+}Speed_Pulse_Status_Typedef;
+
 typedef struct motor_para{
 	Motor_Status_Typedef 		status;				//电机运行状态
 	uint16_t		Disstance_Total_cnt;			//全程计数
@@ -29,8 +36,12 @@ typedef struct motor_para{
 	
 } Motor_Para;
 
+extern Motor_Para MT;
 extern uint8_t pt_Keyscan_cnt;
 extern uint8_t pt_Alarm_Speaker_cnt;
+extern Speed_Pulse_Status_Typedef Speed_Pulse_Status;
+extern uint16_t Speed_Origin;
+extern uint16_t Speed_Pulse_cnt;
 
 void Motor_Init(void);
 

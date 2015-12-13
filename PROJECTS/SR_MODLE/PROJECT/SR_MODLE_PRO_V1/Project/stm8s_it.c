@@ -30,6 +30,7 @@
 #include	"main.h"
 
 /* Private typedef -----------------------------------------------------------*/
+#include	"motor.h"
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -272,6 +273,12 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+	
+	TIM2_SetCounter(0X00);
+	TIM2_ClearITPendingBit(TIM2_IT_UPDATE);
+	Speed_Pulse_Status=SPEED_NO_PULSE;
+	Speed_Origin=0XFFFF;
+	
 }
 
 /**
@@ -284,6 +291,26 @@ INTERRUPT_HANDLER(TIM1_CAP_COM_IRQHandler, 12)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+	
+	TIM2_SetCounter(0X00);
+	TIM2_ClearITPendingBit(TIM2_IT_CC3);
+	
+	if(MT.status==MT_RUNNING_FORWARD){
+		Speed_Pulse_cnt++;
+	}else if(MT.status==MT_RUNNING_BACKWARD){
+		Speed_Pulse_cnt--;
+	}
+	
+	if(Speed_Pulse_Status==SPEED_OK){
+		Speed_Origin=TIM2_GetCapture3();
+	}else if(Speed_Pulse_Status==SPEED_NO_PULSE){
+		Speed_Pulse_Status=SPEED_FIRST_PULSE;
+		Speed_Origin=0XFFFF;
+	}else if(Speed_Pulse_Status==SPEED_FIRST_PULSE){
+		Speed_Pulse_Status=SPEED_OK;
+		Speed_Origin=TIM2_GetCapture3();		
+	}
+	
 }
 #endif /*STM8S903*/
 
