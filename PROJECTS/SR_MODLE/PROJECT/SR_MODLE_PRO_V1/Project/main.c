@@ -12,6 +12,7 @@
 #include "stm8s_conf.h"
 #include	"indicator_light.h"
 #include	"motor.h"
+#include	"communication.h"
 
 volatile uint8_t Timebase_cnt=0;
 uint8_t TCnt_10ms;
@@ -67,7 +68,7 @@ main()
 	CLK_Config();	//Configure the Fcpu to 8MHz,Fmaster=8MHz	
 	Timer_Config();
 	Motor_Init();
-	
+	Comm_Init();
 //	Indicator_Init();
 	
 	while (1)
@@ -106,8 +107,8 @@ void 	Timer_Config(void)
 	TIM1_DeInit();
 	TIM1_TimeBaseInit(	0,																	//不分频，即8MHZ
 											TIM1_COUNTERMODE_CENTERALIGNED1 ,		//中央对齐模式
-											200,																//设置输出频率 20K
-											0);																	//重复计数器
+											200,																//设置输出频率 20KHZ
+											3);																	//重复计数器，每两个周期产生一次更新，频率为10KHZ。此功能用于红外通讯模块
 	TIM1_OC3Init(	TIM1_OCMODE_PWM2,													//TIM1_CNT<TIM1_CCR1时为无效电平
 								TIM1_OUTPUTSTATE_ENABLE, 									//OC3信号输出到引脚
 								TIM1_OUTPUTNSTATE_DISABLE,								//

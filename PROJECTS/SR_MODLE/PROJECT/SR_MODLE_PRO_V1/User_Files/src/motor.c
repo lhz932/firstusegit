@@ -3,6 +3,7 @@
 #include	"stm8s_conf.h"
 #include	"motor.h"
 #include	"pt.h"
+#include	"communication.h"
 
 /*
 	Ω”œﬂÕº£∫

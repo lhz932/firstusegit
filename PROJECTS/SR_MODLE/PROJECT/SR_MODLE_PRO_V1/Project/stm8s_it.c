@@ -31,6 +31,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 #include	"motor.h"
+#include	"communication.h"
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -137,6 +138,11 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+	
+	disableInterrupts();
+	
+	enableInterrupts();
+	
 }
 
 /**
@@ -224,6 +230,9 @@ INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_BRK_IRQHandler, 11)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+	IR_time_cnt++;
+	
+	
 }
 
 /**
@@ -483,12 +492,9 @@ INTERRUPT_HANDLER(TIM6_UPD_OVF_TRG_IRQHandler, 23)
   * @retval None
   */
  INTERRUPT_HANDLER(TIM4_UPD_OVF_IRQHandler, 23)
-{
-	
-	TIM4_ClearITPendingBit(TIM4_IT_UPDATE);
-	
-	Timebase_cnt++;
-	
+{	
+	TIM4_ClearITPendingBit(TIM4_IT_UPDATE);	
+	Timebase_cnt++;	
 	Tasks_1ms_TimeCritical();
 	
 }

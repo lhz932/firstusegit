@@ -1,479 +1,505 @@
    1                     ; C Compiler for STM8 (COSMIC Software)
    2                     ; Parser V4.11.4 - 12 Aug 2015
    3                     ; Generator (Limited) V4.4.3 - 13 Oct 2015
-   4                     ; Optimizer V4.4.3 - 13 Oct 2015
-  21                     	bsct
-  22  0000               _MT:
-  23  0000 00            	dc.b	0
-  24  0001 000000000000  	ds.b	10
-  25  000b               _Speed_Pulse_Status:
-  26  000b 00            	dc.b	0
-  57                     ; 63 static void Obstacle_Avoidance_Sensor_Init(void)
-  57                     ; 64 {
-  59                     .text:	section	.text,new
-  60  0000               L3_Obstacle_Avoidance_Sensor_Init:
-  64                     ; 65 	GPIO_Init(OBSTACLE_AVOIDANCE_SENSOR_PORT,
-  64                     ; 66 						OBSTACLE_AVOIDANCE_SENSOR_A|OBSTACLE_AVOIDANCE_SENSOR_B,
-  64                     ; 67 						GPIO_MODE_IN_PU_NO_IT);				
-  66  0000 4b40          	push	#64
-  67  0002 4b06          	push	#6
-  68  0004 ae5000        	ldw	x,#20480
-  69  0007 cd0000        	call	_GPIO_Init
-  71  000a 85            	popw	x
-  72                     ; 69 }
-  75  000b 81            	ret	
-  99                     ; 70 static void Speed_Sensor_Init(void)
-  99                     ; 71 {
- 100                     .text:	section	.text,new
- 101  0000               L32_Speed_Sensor_Init:
- 105                     ; 72 	GPIO_Init(SPEED_SENSOR_PORT,SPEED_SENSOR,GPIO_MODE_IN_PU_NO_IT);
- 107  0000 4b40          	push	#64
- 108  0002 4b08          	push	#8
- 109  0004 ae5000        	ldw	x,#20480
- 110  0007 cd0000        	call	_GPIO_Init
- 112  000a 85            	popw	x
- 113                     ; 73 }
- 116  000b 81            	ret	
- 141                     ; 74 static void Key_Init(void)
- 141                     ; 75 {
- 142                     .text:	section	.text,new
- 143  0000               L53_Key_Init:
- 147                     ; 76 	GPIO_Init(KEY_PORT,KEY_A|KEY_B,GPIO_MODE_IN_PU_NO_IT);
- 149  0000 4b40          	push	#64
- 150  0002 4b30          	push	#48
- 151  0004 ae5005        	ldw	x,#20485
- 152  0007 cd0000        	call	_GPIO_Init
- 154  000a 85            	popw	x
- 155                     ; 77 	PT_INIT(&pt_Keyscan);
- 157  000b 5f            	clrw	x
- 158  000c bf05          	ldw	_pt_Keyscan,x
- 159                     ; 78 }
- 163  000e 81            	ret	
- 189                     ; 79 static void Alarm_Init(void)
- 189                     ; 80 {
- 190                     .text:	section	.text,new
- 191  0000               L74_Alarm_Init:
- 195                     ; 81 	GPIO_Init(ALARM_PORT,ALARM,GPIO_MODE_OUT_PP_HIGH_SLOW);
- 197  0000 4bd0          	push	#208
- 198  0002 4b10          	push	#16
- 199  0004 ae500f        	ldw	x,#20495
- 200  0007 cd0000        	call	_GPIO_Init
- 202  000a 85            	popw	x
- 203                     ; 83 	PT_INIT(&pt_Alarm_Speaker);
- 205  000b 5f            	clrw	x
- 206  000c bf03          	ldw	_pt_Alarm_Speaker,x
- 207                     ; 84 	PT_INIT(&pt_Alarm_Light);
- 210  000e bf01          	ldw	_pt_Alarm_Light,x
- 211                     ; 85 }
- 215  0010 81            	ret	
- 245                     ; 88 void Motor_Init(void)
- 245                     ; 89 {
- 246                     .text:	section	.text,new
- 247  0000               _Motor_Init:
- 251                     ; 91 	GPIO_Init(L298N_IN_PORT,L298N_IN1|L298N_IN2,GPIO_MODE_OUT_PP_LOW_SLOW);
- 253  0000 4bc0          	push	#192
- 254  0002 4b60          	push	#96
- 255  0004 ae500f        	ldw	x,#20495
- 256  0007 cd0000        	call	_GPIO_Init
- 258  000a 85            	popw	x
- 259                     ; 92 	GPIO_Init(MOTOR_PWM_PORT,MOTOR_PWM,GPIO_MODE_OUT_PP_LOW_SLOW);
- 261  000b 4bc0          	push	#192
- 262  000d 4b08          	push	#8
- 263  000f ae500a        	ldw	x,#20490
- 264  0012 cd0000        	call	_GPIO_Init
- 266  0015 4f            	clr	a
- 267  0016 85            	popw	x
- 268                     ; 94 	TIM1_Cmd(DISABLE);																			//stop计数器
- 270  0017 cd0000        	call	_TIM1_Cmd
- 272                     ; 95 	TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
- 274  001a 4f            	clr	a
- 275  001b cd0000        	call	_TIM1_CtrlPWMOutputs
- 277                     ; 97 	Obstacle_Avoidance_Sensor_Init();
- 279  001e cd0000        	call	L3_Obstacle_Avoidance_Sensor_Init
- 281                     ; 98 	Speed_Sensor_Init();
- 283  0021 cd0000        	call	L32_Speed_Sensor_Init
- 285                     ; 99 	Key_Init();
- 287  0024 cd0000        	call	L53_Key_Init
- 289                     ; 100 	Alarm_Init();
- 292                     ; 105 }
- 295  0027 cc0000        	jp	L74_Alarm_Init
- 354                     ; 107 void Motor_Start(Motor_Direction_Typedef dir)
- 354                     ; 108 {
- 355                     .text:	section	.text,new
- 356  0000               _Motor_Start:
- 360                     ; 109 	if(dir){
- 362  0000 4d            	tnz	a
- 363  0001 270d          	jreq	L711
- 364                     ; 110 		GPIO_WriteHigh(L298N_IN_PORT,L298N_IN1);
- 366  0003 4b20          	push	#32
- 367  0005 ae500f        	ldw	x,#20495
- 368  0008 cd0000        	call	_GPIO_WriteHigh
- 370  000b 84            	pop	a
- 371                     ; 111 		GPIO_WriteLow(L298N_IN_PORT,L298N_IN2);
- 373  000c 4b40          	push	#64
- 376  000e 200b          	jra	L121
- 377  0010               L711:
- 378                     ; 113 		GPIO_WriteHigh(L298N_IN_PORT,L298N_IN2);
- 380  0010 4b40          	push	#64
- 381  0012 ae500f        	ldw	x,#20495
- 382  0015 cd0000        	call	_GPIO_WriteHigh
- 384  0018 84            	pop	a
- 385                     ; 114 		GPIO_WriteLow(L298N_IN_PORT,L298N_IN1);
- 387  0019 4b20          	push	#32
- 389  001b               L121:
- 390  001b ae500f        	ldw	x,#20495
- 391  001e cd0000        	call	_GPIO_WriteLow
- 392  0021 84            	pop	a
- 393                     ; 117 	TIM1_Cmd(ENABLE);																			//使能计数器
- 395  0022 a601          	ld	a,#1
- 396  0024 cd0000        	call	_TIM1_Cmd
- 398                     ; 118 	TIM1_CtrlPWMOutputs(ENABLE);													// TIM1 Main Output Enable
- 400  0027 a601          	ld	a,#1
- 402                     ; 119 }
- 405  0029 cc0000        	jp	_TIM1_CtrlPWMOutputs
- 431                     ; 120 void Motor_Stop(void)
- 431                     ; 121 {
- 432                     .text:	section	.text,new
- 433  0000               _Motor_Stop:
- 437                     ; 122 	TIM1_Cmd(DISABLE);																			//stop计数器
- 439  0000 4f            	clr	a
- 440  0001 cd0000        	call	_TIM1_Cmd
- 442                     ; 123 	TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
- 444  0004 4f            	clr	a
- 445  0005 cd0000        	call	_TIM1_CtrlPWMOutputs
- 447                     ; 124 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN1);
- 449  0008 4b20          	push	#32
- 450  000a ae500f        	ldw	x,#20495
- 451  000d cd0000        	call	_GPIO_WriteLow
- 453  0010 84            	pop	a
- 454                     ; 125 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN2);
- 456  0011 4b40          	push	#64
- 457  0013 ae500f        	ldw	x,#20495
- 458  0016 cd0000        	call	_GPIO_WriteLow
- 460  0019 84            	pop	a
- 461                     ; 126 }
- 464  001a 81            	ret	
- 489                     ; 129 void Sensor_OA_Scan(void)
- 489                     ; 130 {
- 490                     .text:	section	.text,new
- 491  0000               _Sensor_OA_Scan:
- 495                     ; 131 	if(GPIO_ReadInputPin(OBSTACLE_AVOIDANCE_SENSOR_PORT,OBSTACLE_AVOIDANCE_SENSOR_A)){	//
- 497  0000 4b02          	push	#2
- 498  0002 ae5000        	ldw	x,#20480
- 499  0005 cd0000        	call	_GPIO_ReadInputPin
- 501  0008 5b01          	addw	sp,#1
- 502  000a 4d            	tnz	a
- 503  000b 2704          	jreq	L341
- 504                     ; 132 		MT.Sensor_OA_A=0;	
- 506  000d 3f05          	clr	_MT+5
- 508  000f 2004          	jra	L541
- 509  0011               L341:
- 510                     ; 134 		MT.Sensor_OA_A=1;
- 512  0011 35010005      	mov	_MT+5,#1
- 513  0015               L541:
- 514                     ; 136 	if(GPIO_ReadInputPin(OBSTACLE_AVOIDANCE_SENSOR_PORT,OBSTACLE_AVOIDANCE_SENSOR_B)){	//
- 516  0015 4b04          	push	#4
- 517  0017 ae5000        	ldw	x,#20480
- 518  001a cd0000        	call	_GPIO_ReadInputPin
- 520  001d 5b01          	addw	sp,#1
- 521  001f 4d            	tnz	a
- 522  0020 2703          	jreq	L741
- 523                     ; 137 		MT.Sensor_OA_B=0;	
- 525  0022 3f06          	clr	_MT+6
- 528  0024 81            	ret	
- 529  0025               L741:
- 530                     ; 139 		MT.Sensor_OA_B=1;
- 532  0025 35010006      	mov	_MT+6,#1
- 533                     ; 141 }
- 536  0029 81            	ret	
- 574                     ; 144 PT_THREAD(Key_Scan(void))
- 574                     ; 145 {
- 575                     .text:	section	.text,new
- 576  0000               _Key_Scan:
- 578  0000 88            	push	a
- 579       00000001      OFST:	set	1
- 582                     ; 146 	PT_BEGIN(&pt_Keyscan);
- 586  0001 be05          	ldw	x,_pt_Keyscan
- 588                     ; 163 			MT.Key_B=1;
- 589  0003 2716          	jreq	L351
- 590  0005 1d0097        	subw	x,#151
- 591  0008 271c          	jreq	L551
- 592  000a 1d0002        	subw	x,#2
- 593  000d 2728          	jreq	L751
- 594  000f 1d0007        	subw	x,#7
- 595  0012 2738          	jreq	L161
- 596  0014 1d0002        	subw	x,#2
- 597  0017 2744          	jreq	L361
- 598  0019 204c          	jra	L502
- 599  001b               L351:
- 600                     ; 148 	if(GPIO_ReadInputPin(KEY_PORT,KEY_A)){	//按键动作
- 603  001b ad52          	call	LC001
- 604  001d 2722          	jreq	L702
- 605                     ; 150 		pt_Keyscan_cnt=0;
- 607  001f 3f0c          	clr	_pt_Keyscan_cnt
- 608                     ; 151 		PT_WAIT_UNTIL(&pt_Keyscan,pt_Keyscan_cnt>5);
- 610  0021 ae0097        	ldw	x,#151
- 611  0024 bf05          	ldw	_pt_Keyscan,x
- 612  0026               L551:
- 616  0026 b60c          	ld	a,_pt_Keyscan_cnt
- 617  0028 a106          	cp	a,#6
- 618  002a 2402          	jruge	L512
- 621  002c 2059          	jp	LC003
- 622  002e               L512:
- 623                     ; 152 		if(GPIO_ReadInputPin(KEY_PORT,KEY_A)){	//有效的按键动作
- 625  002e ad3f          	call	LC001
- 626  0030 270f          	jreq	L702
- 627                     ; 153 			PT_WAIT_UNTIL(&pt_Keyscan,GPIO_ReadInputPin(KEY_PORT,KEY_A)==0);	//等待按键释放
- 629  0032 ae0099        	ldw	x,#153
- 630  0035 bf05          	ldw	_pt_Keyscan,x
- 631  0037               L751:
- 635  0037 ad36          	call	LC001
- 636  0039 2702          	jreq	L522
- 639  003b 204a          	jp	LC003
- 640  003d               L522:
- 641                     ; 154 			MT.Key_A=1;
- 643  003d 35010008      	mov	_MT+8,#1
- 644  0041               L702:
- 645                     ; 157 	if(GPIO_ReadInputPin(KEY_PORT,KEY_B)){	//按键动作
- 647  0041 ad38          	call	LC002
- 648  0043 2722          	jreq	L502
- 649                     ; 159 		pt_Keyscan_cnt=0;
- 651  0045 3f0c          	clr	_pt_Keyscan_cnt
- 652                     ; 160 		PT_WAIT_UNTIL(&pt_Keyscan,pt_Keyscan_cnt>5);
- 654  0047 ae00a0        	ldw	x,#160
- 655  004a bf05          	ldw	_pt_Keyscan,x
- 656  004c               L161:
- 660  004c b60c          	ld	a,_pt_Keyscan_cnt
- 661  004e a106          	cp	a,#6
- 662  0050 2402          	jruge	L532
- 665  0052 2033          	jp	LC003
- 666  0054               L532:
- 667                     ; 161 		if(GPIO_ReadInputPin(KEY_PORT,KEY_B)){
- 669  0054 ad25          	call	LC002
- 670  0056 270f          	jreq	L502
- 671                     ; 162 			PT_WAIT_UNTIL(&pt_Keyscan,GPIO_ReadInputPin(KEY_PORT,KEY_B)==0);	//等待按键释放
- 673  0058 ae00a2        	ldw	x,#162
- 674  005b bf05          	ldw	_pt_Keyscan,x
- 675  005d               L361:
- 679  005d ad1c          	call	LC002
- 680  005f 2702          	jreq	L542
- 683  0061 2024          	jp	LC003
- 684  0063               L542:
- 685                     ; 163 			MT.Key_B=1;
- 687  0063 35010009      	mov	_MT+9,#1
- 688  0067               L502:
- 689                     ; 167 	PT_END(&pt_Keyscan);
- 694  0067 5f            	clrw	x
- 695  0068 bf05          	ldw	_pt_Keyscan,x
- 699  006a a602          	ld	a,#2
- 702  006c 5b01          	addw	sp,#1
- 703  006e 81            	ret	
- 704  006f               LC001:
- 705  006f 4b10          	push	#16
- 706  0071 ae5005        	ldw	x,#20485
- 707  0074 cd0000        	call	_GPIO_ReadInputPin
- 709  0077 5b01          	addw	sp,#1
- 710  0079 4d            	tnz	a
- 711  007a 81            	ret	
- 712  007b               LC002:
- 713  007b 4b20          	push	#32
- 714  007d ae5005        	ldw	x,#20485
- 715  0080 cd0000        	call	_GPIO_ReadInputPin
- 717  0083 5b01          	addw	sp,#1
- 718  0085 4d            	tnz	a
- 719  0086 81            	ret	
- 720  0087               LC003:
- 721  0087 4f            	clr	a
- 722                     ; 162 			PT_WAIT_UNTIL(&pt_Keyscan,GPIO_ReadInputPin(KEY_PORT,KEY_B)==0);	//等待按键释放
- 724  0088 5b01          	addw	sp,#1
- 725  008a 81            	ret	
- 751                     ; 173 void MT_Control(void)
- 751                     ; 174 {
- 752                     .text:	section	.text,new
- 753  0000               _MT_Control:
- 757                     ; 175 	if(MT.Key_A&&(MT.Sensor_OA_A==0)){	//正向满足运行条件
- 759  0000 b608          	ld	a,_MT+8
- 760  0002 2719          	jreq	L752
- 762  0004 b605          	ld	a,_MT+5
- 763  0006 2615          	jrne	L752
- 764                     ; 176 		MT.Key_A=0;	//清除按键指令	
- 766  0008 b708          	ld	_MT+8,a
- 767                     ; 177 		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
- 769  000a 3d00          	tnz	_MT
- 770  000c 260a          	jrne	L162
- 771                     ; 178 			Motor_Start(MOTOR_FORWARD);
- 773  000e 4c            	inc	a
- 774  000f cd0000        	call	_Motor_Start
- 776                     ; 179 			MT.status=MT_RUNNING_FORWARD;		//更新运行状态
- 778  0012 35010000      	mov	_MT,#1
- 780  0016 2005          	jra	L752
- 781  0018               L162:
- 782                     ; 181 			Motor_Stop();
- 784  0018 cd0000        	call	_Motor_Stop
- 786                     ; 182 			MT.status=MT_STOPPED;						//更新运行状态
- 788  001b 3f00          	clr	_MT
- 789  001d               L752:
- 790                     ; 186 	if(MT.Key_B&&(MT.Sensor_OA_B==0)){	//反向满足运行条件
- 792  001d b609          	ld	a,_MT+9
- 793  001f 2718          	jreq	L562
- 795  0021 b606          	ld	a,_MT+6
- 796  0023 2614          	jrne	L562
- 797                     ; 187 		MT.Key_B=0;	//清除按键指令	
- 799  0025 b709          	ld	_MT+9,a
- 800                     ; 188 		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
- 802  0027 3d00          	tnz	_MT
- 803  0029 2609          	jrne	L762
- 804                     ; 189 			Motor_Start(MOTOR_BACKWARD);
- 806  002b cd0000        	call	_Motor_Start
- 808                     ; 190 			MT.status=MT_RUNNING_BACKWARD;		//更新运行状态
- 810  002e 35110000      	mov	_MT,#17
- 812  0032 2005          	jra	L562
- 813  0034               L762:
- 814                     ; 192 			Motor_Stop();
- 816  0034 cd0000        	call	_Motor_Stop
- 818                     ; 193 			MT.status=MT_STOPPED;						//更新运行状态
- 820  0037 3f00          	clr	_MT
- 821  0039               L562:
- 822                     ; 197 	if((MT.status==MT_RUNNING_FORWARD)&&(MT.Sensor_OA_A==1))	//正向急停
- 824  0039 b600          	ld	a,_MT
- 825  003b 4a            	dec	a
- 826  003c 260a          	jrne	L372
- 828  003e b605          	ld	a,_MT+5
- 829  0040 4a            	dec	a
- 830  0041 2605          	jrne	L372
- 831                     ; 199 		Motor_Stop();
- 833  0043 cd0000        	call	_Motor_Stop
- 835                     ; 200 		MT.status=MT_STOPPED;						//更新运行状态
- 837  0046 3f00          	clr	_MT
- 838  0048               L372:
- 839                     ; 202 	if((MT.status==MT_RUNNING_BACKWARD)&&(MT.Sensor_OA_B==1))	//反向急停
- 841  0048 b600          	ld	a,_MT
- 842  004a a111          	cp	a,#17
- 843  004c 260a          	jrne	L572
- 845  004e b606          	ld	a,_MT+6
- 846  0050 4a            	dec	a
- 847  0051 2605          	jrne	L572
- 848                     ; 204 		Motor_Stop();
- 850  0053 cd0000        	call	_Motor_Stop
- 852                     ; 205 		MT.status=MT_STOPPED;						//更新运行状态
- 854  0056 3f00          	clr	_MT
- 855  0058               L572:
- 856                     ; 209 }
- 859  0058 81            	ret	
- 897                     ; 210 PT_THREAD(Alarm_Speaker(void))
- 897                     ; 211 {
- 898                     .text:	section	.text,new
- 899  0000               _Alarm_Speaker:
- 901  0000 88            	push	a
- 902       00000001      OFST:	set	1
- 905                     ; 212 	PT_BEGIN(&pt_Alarm_Speaker);
- 909  0001 be03          	ldw	x,_pt_Alarm_Speaker
- 911                     ; 220 	GPIO_WriteHigh(ALARM_PORT,ALARM);
- 912  0003 270c          	jreq	L772
- 913  0005 1d00d7        	subw	x,#215
- 914  0008 270e          	jreq	L103
- 915  000a 1d0004        	subw	x,#4
- 916  000d 2723          	jreq	L303
- 917  000f 2034          	jra	L523
- 918  0011               L772:
- 919                     ; 214 	pt_Alarm_Speaker_cnt=0;
- 922  0011 3f0b          	clr	_pt_Alarm_Speaker_cnt
- 923                     ; 215 	PT_WAIT_UNTIL(&pt_Alarm_Speaker,pt_Alarm_Speaker_cnt>30);
- 925  0013 ae00d7        	ldw	x,#215
- 926  0016 bf03          	ldw	_pt_Alarm_Speaker,x
- 927  0018               L103:
- 931  0018 b60b          	ld	a,_pt_Alarm_Speaker_cnt
- 932  001a a11f          	cp	a,#31
- 933  001c 2404          	jruge	L333
- 936  001e 4f            	clr	a
- 939  001f 5b01          	addw	sp,#1
- 940  0021 81            	ret	
- 941  0022               L333:
- 942                     ; 216 	GPIO_WriteLow(ALARM_PORT,ALARM);
- 944  0022 4b10          	push	#16
- 945  0024 ae500f        	ldw	x,#20495
- 946  0027 cd0000        	call	_GPIO_WriteLow
- 948  002a 3f0b          	clr	_pt_Alarm_Speaker_cnt
- 949  002c ae00db        	ldw	x,#219
- 950  002f bf03          	ldw	_pt_Alarm_Speaker,x
- 951  0031 84            	pop	a
- 952                     ; 218 	pt_Alarm_Speaker_cnt=0;
- 954                     ; 219 	PT_WAIT_UNTIL(&pt_Alarm_Speaker,pt_Alarm_Speaker_cnt>50);
- 956  0032               L303:
- 960  0032 b60b          	ld	a,_pt_Alarm_Speaker_cnt
- 961  0034 a133          	cp	a,#51
- 962  0036 2404          	jruge	L143
- 965  0038 4f            	clr	a
- 968  0039 5b01          	addw	sp,#1
- 969  003b 81            	ret	
- 970  003c               L143:
- 971                     ; 220 	GPIO_WriteHigh(ALARM_PORT,ALARM);
- 973  003c 4b10          	push	#16
- 974  003e ae500f        	ldw	x,#20495
- 975  0041 cd0000        	call	_GPIO_WriteHigh
- 977  0044 84            	pop	a
- 978  0045               L523:
- 979                     ; 222 	PT_END(&pt_Alarm_Speaker);
- 984  0045 5f            	clrw	x
- 985  0046 bf03          	ldw	_pt_Alarm_Speaker,x
- 989  0048 a602          	ld	a,#2
- 992  004a 5b01          	addw	sp,#1
- 993  004c 81            	ret	
-1019                     ; 227 void Alarm(void)
-1019                     ; 228 {
-1020                     .text:	section	.text,new
-1021  0000               _Alarm:
-1025                     ; 229 	if(MT.status&0x01)	//if running
-1027  0000 7201000003    	btjf	_MT,#0,L353
-1028                     ; 231 		Alarm_Speaker();
-1033  0005 cc0000        	jp	_Alarm_Speaker
-1034  0008               L353:
-1035                     ; 233 		GPIO_WriteHigh(ALARM_PORT,ALARM);
-1037  0008 4b10          	push	#16
-1038  000a ae500f        	ldw	x,#20495
-1039  000d cd0000        	call	_GPIO_WriteHigh
-1041  0010 84            	pop	a
-1042                     ; 235 }
-1045  0011 81            	ret	
-1299                     	xdef	_Alarm_Speaker
-1300                     	switch	.ubsct
-1301  0000               _pt_Alarm_Light_cnt:
-1302  0000 00            	ds.b	1
-1303                     	xdef	_pt_Alarm_Light_cnt
-1304  0001               _pt_Alarm_Light:
-1305  0001 0000          	ds.b	2
-1306                     	xdef	_pt_Alarm_Light
-1307  0003               _pt_Alarm_Speaker:
-1308  0003 0000          	ds.b	2
-1309                     	xdef	_pt_Alarm_Speaker
-1310  0005               _pt_Keyscan:
-1311  0005 0000          	ds.b	2
-1312                     	xdef	_pt_Keyscan
-1313                     	xdef	_Alarm
-1314                     	xdef	_MT_Control
-1315                     	xdef	_Key_Scan
-1316                     	xdef	_Sensor_OA_Scan
-1317                     	xdef	_Motor_Stop
-1318                     	xdef	_Motor_Start
-1319                     	xdef	_Motor_Init
-1320  0007               _Speed_Pulse_cnt:
-1321  0007 0000          	ds.b	2
-1322                     	xdef	_Speed_Pulse_cnt
-1323  0009               _Speed_Origin:
-1324  0009 0000          	ds.b	2
-1325                     	xdef	_Speed_Origin
-1326                     	xdef	_Speed_Pulse_Status
-1327  000b               _pt_Alarm_Speaker_cnt:
-1328  000b 00            	ds.b	1
-1329                     	xdef	_pt_Alarm_Speaker_cnt
-1330  000c               _pt_Keyscan_cnt:
-1331  000c 00            	ds.b	1
-1332                     	xdef	_pt_Keyscan_cnt
-1333                     	xdef	_MT
-1334                     	xref	_TIM1_CtrlPWMOutputs
-1335                     	xref	_TIM1_Cmd
-1336                     	xref	_GPIO_ReadInputPin
-1337                     	xref	_GPIO_WriteLow
-1338                     	xref	_GPIO_WriteHigh
-1339                     	xref	_GPIO_Init
-1359                     	end
+  16                     	bsct
+  17  0000               _MT:
+  18  0000 00            	dc.b	0
+  19  0001 000000000000  	ds.b	10
+  20  000b               _Speed_Pulse_Status:
+  21  000b 00            	dc.b	0
+  52                     ; 64 static void Obstacle_Avoidance_Sensor_Init(void)
+  52                     ; 65 {
+  54                     	switch	.text
+  55  0000               L3_Obstacle_Avoidance_Sensor_Init:
+  59                     ; 66 	GPIO_Init(OBSTACLE_AVOIDANCE_SENSOR_PORT,
+  59                     ; 67 						OBSTACLE_AVOIDANCE_SENSOR_A|OBSTACLE_AVOIDANCE_SENSOR_B,
+  59                     ; 68 						GPIO_MODE_IN_PU_NO_IT);				
+  61  0000 4b40          	push	#64
+  62  0002 4b06          	push	#6
+  63  0004 ae5000        	ldw	x,#20480
+  64  0007 cd0000        	call	_GPIO_Init
+  66  000a 85            	popw	x
+  67                     ; 70 }
+  70  000b 81            	ret
+  94                     ; 71 static void Speed_Sensor_Init(void)
+  94                     ; 72 {
+  95                     	switch	.text
+  96  000c               L32_Speed_Sensor_Init:
+ 100                     ; 73 	GPIO_Init(SPEED_SENSOR_PORT,SPEED_SENSOR,GPIO_MODE_IN_PU_NO_IT);
+ 102  000c 4b40          	push	#64
+ 103  000e 4b08          	push	#8
+ 104  0010 ae5000        	ldw	x,#20480
+ 105  0013 cd0000        	call	_GPIO_Init
+ 107  0016 85            	popw	x
+ 108                     ; 74 }
+ 111  0017 81            	ret
+ 136                     ; 75 static void Key_Init(void)
+ 136                     ; 76 {
+ 137                     	switch	.text
+ 138  0018               L53_Key_Init:
+ 142                     ; 77 	GPIO_Init(KEY_PORT,KEY_A|KEY_B,GPIO_MODE_IN_PU_NO_IT);
+ 144  0018 4b40          	push	#64
+ 145  001a 4b30          	push	#48
+ 146  001c ae5005        	ldw	x,#20485
+ 147  001f cd0000        	call	_GPIO_Init
+ 149  0022 85            	popw	x
+ 150                     ; 78 	PT_INIT(&pt_Keyscan);
+ 152  0023 5f            	clrw	x
+ 153  0024 bf05          	ldw	_pt_Keyscan,x
+ 154                     ; 79 }
+ 158  0026 81            	ret
+ 184                     ; 80 static void Alarm_Init(void)
+ 184                     ; 81 {
+ 185                     	switch	.text
+ 186  0027               L74_Alarm_Init:
+ 190                     ; 82 	GPIO_Init(ALARM_PORT,ALARM,GPIO_MODE_OUT_PP_HIGH_SLOW);
+ 192  0027 4bd0          	push	#208
+ 193  0029 4b10          	push	#16
+ 194  002b ae500f        	ldw	x,#20495
+ 195  002e cd0000        	call	_GPIO_Init
+ 197  0031 85            	popw	x
+ 198                     ; 84 	PT_INIT(&pt_Alarm_Speaker);
+ 200  0032 5f            	clrw	x
+ 201  0033 bf03          	ldw	_pt_Alarm_Speaker,x
+ 202                     ; 85 	PT_INIT(&pt_Alarm_Light);
+ 205  0035 5f            	clrw	x
+ 206  0036 bf01          	ldw	_pt_Alarm_Light,x
+ 207                     ; 86 }
+ 211  0038 81            	ret
+ 241                     ; 89 void Motor_Init(void)
+ 241                     ; 90 {
+ 242                     	switch	.text
+ 243  0039               _Motor_Init:
+ 247                     ; 92 	GPIO_Init(L298N_IN_PORT,L298N_IN1|L298N_IN2,GPIO_MODE_OUT_PP_LOW_SLOW);
+ 249  0039 4bc0          	push	#192
+ 250  003b 4b60          	push	#96
+ 251  003d ae500f        	ldw	x,#20495
+ 252  0040 cd0000        	call	_GPIO_Init
+ 254  0043 85            	popw	x
+ 255                     ; 93 	GPIO_Init(MOTOR_PWM_PORT,MOTOR_PWM,GPIO_MODE_OUT_PP_LOW_SLOW);
+ 257  0044 4bc0          	push	#192
+ 258  0046 4b08          	push	#8
+ 259  0048 ae500a        	ldw	x,#20490
+ 260  004b cd0000        	call	_GPIO_Init
+ 262  004e 85            	popw	x
+ 263                     ; 95 	TIM1_Cmd(DISABLE);																			//stop计数器
+ 265  004f 4f            	clr	a
+ 266  0050 cd0000        	call	_TIM1_Cmd
+ 268                     ; 96 	TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
+ 270  0053 4f            	clr	a
+ 271  0054 cd0000        	call	_TIM1_CtrlPWMOutputs
+ 273                     ; 98 	Obstacle_Avoidance_Sensor_Init();
+ 275  0057 ada7          	call	L3_Obstacle_Avoidance_Sensor_Init
+ 277                     ; 99 	Speed_Sensor_Init();
+ 279  0059 adb1          	call	L32_Speed_Sensor_Init
+ 281                     ; 100 	Key_Init();
+ 283  005b adbb          	call	L53_Key_Init
+ 285                     ; 101 	Alarm_Init();
+ 287  005d adc8          	call	L74_Alarm_Init
+ 289                     ; 106 }
+ 292  005f 81            	ret
+ 351                     ; 108 void Motor_Start(Motor_Direction_Typedef dir)
+ 351                     ; 109 {
+ 352                     	switch	.text
+ 353  0060               _Motor_Start:
+ 357                     ; 110 	if(dir){
+ 359  0060 4d            	tnz	a
+ 360  0061 2714          	jreq	L711
+ 361                     ; 111 		GPIO_WriteHigh(L298N_IN_PORT,L298N_IN1);
+ 363  0063 4b20          	push	#32
+ 364  0065 ae500f        	ldw	x,#20495
+ 365  0068 cd0000        	call	_GPIO_WriteHigh
+ 367  006b 84            	pop	a
+ 368                     ; 112 		GPIO_WriteLow(L298N_IN_PORT,L298N_IN2);
+ 370  006c 4b40          	push	#64
+ 371  006e ae500f        	ldw	x,#20495
+ 372  0071 cd0000        	call	_GPIO_WriteLow
+ 374  0074 84            	pop	a
+ 376  0075 2012          	jra	L121
+ 377  0077               L711:
+ 378                     ; 114 		GPIO_WriteHigh(L298N_IN_PORT,L298N_IN2);
+ 380  0077 4b40          	push	#64
+ 381  0079 ae500f        	ldw	x,#20495
+ 382  007c cd0000        	call	_GPIO_WriteHigh
+ 384  007f 84            	pop	a
+ 385                     ; 115 		GPIO_WriteLow(L298N_IN_PORT,L298N_IN1);
+ 387  0080 4b20          	push	#32
+ 388  0082 ae500f        	ldw	x,#20495
+ 389  0085 cd0000        	call	_GPIO_WriteLow
+ 391  0088 84            	pop	a
+ 392  0089               L121:
+ 393                     ; 118 	TIM1_Cmd(ENABLE);																			//使能计数器
+ 395  0089 a601          	ld	a,#1
+ 396  008b cd0000        	call	_TIM1_Cmd
+ 398                     ; 119 	TIM1_CtrlPWMOutputs(ENABLE);													// TIM1 Main Output Enable
+ 400  008e a601          	ld	a,#1
+ 401  0090 cd0000        	call	_TIM1_CtrlPWMOutputs
+ 403                     ; 120 }
+ 406  0093 81            	ret
+ 432                     ; 121 void Motor_Stop(void)
+ 432                     ; 122 {
+ 433                     	switch	.text
+ 434  0094               _Motor_Stop:
+ 438                     ; 123 	TIM1_Cmd(DISABLE);																			//stop计数器
+ 440  0094 4f            	clr	a
+ 441  0095 cd0000        	call	_TIM1_Cmd
+ 443                     ; 124 	TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
+ 445  0098 4f            	clr	a
+ 446  0099 cd0000        	call	_TIM1_CtrlPWMOutputs
+ 448                     ; 125 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN1);
+ 450  009c 4b20          	push	#32
+ 451  009e ae500f        	ldw	x,#20495
+ 452  00a1 cd0000        	call	_GPIO_WriteLow
+ 454  00a4 84            	pop	a
+ 455                     ; 126 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN2);
+ 457  00a5 4b40          	push	#64
+ 458  00a7 ae500f        	ldw	x,#20495
+ 459  00aa cd0000        	call	_GPIO_WriteLow
+ 461  00ad 84            	pop	a
+ 462                     ; 127 }
+ 465  00ae 81            	ret
+ 490                     ; 130 void Sensor_OA_Scan(void)
+ 490                     ; 131 {
+ 491                     	switch	.text
+ 492  00af               _Sensor_OA_Scan:
+ 496                     ; 132 	if(GPIO_ReadInputPin(OBSTACLE_AVOIDANCE_SENSOR_PORT,OBSTACLE_AVOIDANCE_SENSOR_A)){	//
+ 498  00af 4b02          	push	#2
+ 499  00b1 ae5000        	ldw	x,#20480
+ 500  00b4 cd0000        	call	_GPIO_ReadInputPin
+ 502  00b7 5b01          	addw	sp,#1
+ 503  00b9 4d            	tnz	a
+ 504  00ba 2704          	jreq	L341
+ 505                     ; 133 		MT.Sensor_OA_A=0;	
+ 507  00bc 3f05          	clr	_MT+5
+ 509  00be 2004          	jra	L541
+ 510  00c0               L341:
+ 511                     ; 135 		MT.Sensor_OA_A=1;
+ 513  00c0 35010005      	mov	_MT+5,#1
+ 514  00c4               L541:
+ 515                     ; 137 	if(GPIO_ReadInputPin(OBSTACLE_AVOIDANCE_SENSOR_PORT,OBSTACLE_AVOIDANCE_SENSOR_B)){	//
+ 517  00c4 4b04          	push	#4
+ 518  00c6 ae5000        	ldw	x,#20480
+ 519  00c9 cd0000        	call	_GPIO_ReadInputPin
+ 521  00cc 5b01          	addw	sp,#1
+ 522  00ce 4d            	tnz	a
+ 523  00cf 2704          	jreq	L741
+ 524                     ; 138 		MT.Sensor_OA_B=0;	
+ 526  00d1 3f06          	clr	_MT+6
+ 528  00d3 2004          	jra	L151
+ 529  00d5               L741:
+ 530                     ; 140 		MT.Sensor_OA_B=1;
+ 532  00d5 35010006      	mov	_MT+6,#1
+ 533  00d9               L151:
+ 534                     ; 142 }
+ 537  00d9 81            	ret
+ 575                     ; 145 PT_THREAD(Key_Scan(void))
+ 575                     ; 146 {
+ 576                     	switch	.text
+ 577  00da               _Key_Scan:
+ 579  00da 88            	push	a
+ 580       00000001      OFST:	set	1
+ 583                     ; 147 	PT_BEGIN(&pt_Keyscan);
+ 587  00db be05          	ldw	x,_pt_Keyscan
+ 589                     ; 164 			MT.Key_B=1;
+ 590  00dd 5d            	tnzw	x
+ 591  00de 2717          	jreq	L351
+ 592  00e0 1d0098        	subw	x,#152
+ 593  00e3 2726          	jreq	L551
+ 594  00e5 1d0002        	subw	x,#2
+ 595  00e8 273d          	jreq	L751
+ 596  00ea 1d0007        	subw	x,#7
+ 597  00ed 2761          	jreq	L161
+ 598  00ef 1d0002        	subw	x,#2
+ 599  00f2 2778          	jreq	L361
+ 600  00f4 cc0181        	jra	L502
+ 601  00f7               L351:
+ 602                     ; 149 	if(GPIO_ReadInputPin(KEY_PORT,KEY_A)){	//按键动作
+ 605  00f7 4b10          	push	#16
+ 606  00f9 ae5005        	ldw	x,#20485
+ 607  00fc cd0000        	call	_GPIO_ReadInputPin
+ 609  00ff 5b01          	addw	sp,#1
+ 610  0101 4d            	tnz	a
+ 611  0102 2738          	jreq	L702
+ 612                     ; 151 		pt_Keyscan_cnt=0;
+ 614  0104 3f0c          	clr	_pt_Keyscan_cnt
+ 615                     ; 152 		PT_WAIT_UNTIL(&pt_Keyscan,pt_Keyscan_cnt>5);
+ 617  0106 ae0098        	ldw	x,#152
+ 618  0109 bf05          	ldw	_pt_Keyscan,x
+ 619  010b               L551:
+ 623  010b b60c          	ld	a,_pt_Keyscan_cnt
+ 624  010d a106          	cp	a,#6
+ 625  010f 2404          	jruge	L512
+ 628  0111 4f            	clr	a
+ 631  0112 5b01          	addw	sp,#1
+ 632  0114 81            	ret
+ 633  0115               L512:
+ 634                     ; 153 		if(GPIO_ReadInputPin(KEY_PORT,KEY_A)){	//有效的按键动作
+ 636  0115 4b10          	push	#16
+ 637  0117 ae5005        	ldw	x,#20485
+ 638  011a cd0000        	call	_GPIO_ReadInputPin
+ 640  011d 5b01          	addw	sp,#1
+ 641  011f 4d            	tnz	a
+ 642  0120 271a          	jreq	L702
+ 643                     ; 154 			PT_WAIT_UNTIL(&pt_Keyscan,GPIO_ReadInputPin(KEY_PORT,KEY_A)==0);	//等待按键释放
+ 645  0122 ae009a        	ldw	x,#154
+ 646  0125 bf05          	ldw	_pt_Keyscan,x
+ 647  0127               L751:
+ 651  0127 4b10          	push	#16
+ 652  0129 ae5005        	ldw	x,#20485
+ 653  012c cd0000        	call	_GPIO_ReadInputPin
+ 655  012f 5b01          	addw	sp,#1
+ 656  0131 4d            	tnz	a
+ 657  0132 2704          	jreq	L522
+ 660  0134 4f            	clr	a
+ 663  0135 5b01          	addw	sp,#1
+ 664  0137 81            	ret
+ 665  0138               L522:
+ 666                     ; 155 			MT.Key_A=1;
+ 668  0138 35010008      	mov	_MT+8,#1
+ 669  013c               L702:
+ 670                     ; 158 	if(GPIO_ReadInputPin(KEY_PORT,KEY_B)){	//按键动作
+ 672  013c 4b20          	push	#32
+ 673  013e ae5005        	ldw	x,#20485
+ 674  0141 cd0000        	call	_GPIO_ReadInputPin
+ 676  0144 5b01          	addw	sp,#1
+ 677  0146 4d            	tnz	a
+ 678  0147 2738          	jreq	L502
+ 679                     ; 160 		pt_Keyscan_cnt=0;
+ 681  0149 3f0c          	clr	_pt_Keyscan_cnt
+ 682                     ; 161 		PT_WAIT_UNTIL(&pt_Keyscan,pt_Keyscan_cnt>5);
+ 684  014b ae00a1        	ldw	x,#161
+ 685  014e bf05          	ldw	_pt_Keyscan,x
+ 686  0150               L161:
+ 690  0150 b60c          	ld	a,_pt_Keyscan_cnt
+ 691  0152 a106          	cp	a,#6
+ 692  0154 2404          	jruge	L532
+ 695  0156 4f            	clr	a
+ 698  0157 5b01          	addw	sp,#1
+ 699  0159 81            	ret
+ 700  015a               L532:
+ 701                     ; 162 		if(GPIO_ReadInputPin(KEY_PORT,KEY_B)){
+ 703  015a 4b20          	push	#32
+ 704  015c ae5005        	ldw	x,#20485
+ 705  015f cd0000        	call	_GPIO_ReadInputPin
+ 707  0162 5b01          	addw	sp,#1
+ 708  0164 4d            	tnz	a
+ 709  0165 271a          	jreq	L502
+ 710                     ; 163 			PT_WAIT_UNTIL(&pt_Keyscan,GPIO_ReadInputPin(KEY_PORT,KEY_B)==0);	//等待按键释放
+ 712  0167 ae00a3        	ldw	x,#163
+ 713  016a bf05          	ldw	_pt_Keyscan,x
+ 714  016c               L361:
+ 718  016c 4b20          	push	#32
+ 719  016e ae5005        	ldw	x,#20485
+ 720  0171 cd0000        	call	_GPIO_ReadInputPin
+ 722  0174 5b01          	addw	sp,#1
+ 723  0176 4d            	tnz	a
+ 724  0177 2704          	jreq	L542
+ 727  0179 4f            	clr	a
+ 730  017a 5b01          	addw	sp,#1
+ 731  017c 81            	ret
+ 732  017d               L542:
+ 733                     ; 164 			MT.Key_B=1;
+ 735  017d 35010009      	mov	_MT+9,#1
+ 736  0181               L502:
+ 737                     ; 168 	PT_END(&pt_Keyscan);
+ 742  0181 5f            	clrw	x
+ 743  0182 bf05          	ldw	_pt_Keyscan,x
+ 747  0184 a602          	ld	a,#2
+ 750  0186 5b01          	addw	sp,#1
+ 751  0188 81            	ret
+ 777                     ; 174 void MT_Control(void)
+ 777                     ; 175 {
+ 778                     	switch	.text
+ 779  0189               _MT_Control:
+ 783                     ; 176 	if(MT.Key_A&&(MT.Sensor_OA_A==0)){	//正向满足运行条件
+ 785  0189 3d08          	tnz	_MT+8
+ 786  018b 271a          	jreq	L752
+ 788  018d 3d05          	tnz	_MT+5
+ 789  018f 2616          	jrne	L752
+ 790                     ; 177 		MT.Key_A=0;	//清除按键指令	
+ 792  0191 3f08          	clr	_MT+8
+ 793                     ; 178 		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
+ 795  0193 3d00          	tnz	_MT
+ 796  0195 260b          	jrne	L162
+ 797                     ; 179 			Motor_Start(MOTOR_FORWARD);
+ 799  0197 a601          	ld	a,#1
+ 800  0199 cd0060        	call	_Motor_Start
+ 802                     ; 180 			MT.status=MT_RUNNING_FORWARD;		//更新运行状态
+ 804  019c 35010000      	mov	_MT,#1
+ 806  01a0 2005          	jra	L752
+ 807  01a2               L162:
+ 808                     ; 182 			Motor_Stop();
+ 810  01a2 cd0094        	call	_Motor_Stop
+ 812                     ; 183 			MT.status=MT_STOPPED;						//更新运行状态
+ 814  01a5 3f00          	clr	_MT
+ 815  01a7               L752:
+ 816                     ; 187 	if(MT.Key_B&&(MT.Sensor_OA_B==0)){	//反向满足运行条件
+ 818  01a7 3d09          	tnz	_MT+9
+ 819  01a9 2719          	jreq	L562
+ 821  01ab 3d06          	tnz	_MT+6
+ 822  01ad 2615          	jrne	L562
+ 823                     ; 188 		MT.Key_B=0;	//清除按键指令	
+ 825  01af 3f09          	clr	_MT+9
+ 826                     ; 189 		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
+ 828  01b1 3d00          	tnz	_MT
+ 829  01b3 260a          	jrne	L762
+ 830                     ; 190 			Motor_Start(MOTOR_BACKWARD);
+ 832  01b5 4f            	clr	a
+ 833  01b6 cd0060        	call	_Motor_Start
+ 835                     ; 191 			MT.status=MT_RUNNING_BACKWARD;		//更新运行状态
+ 837  01b9 35110000      	mov	_MT,#17
+ 839  01bd 2005          	jra	L562
+ 840  01bf               L762:
+ 841                     ; 193 			Motor_Stop();
+ 843  01bf cd0094        	call	_Motor_Stop
+ 845                     ; 194 			MT.status=MT_STOPPED;						//更新运行状态
+ 847  01c2 3f00          	clr	_MT
+ 848  01c4               L562:
+ 849                     ; 198 	if((MT.status==MT_RUNNING_FORWARD)&&(MT.Sensor_OA_A==1))	//正向急停
+ 851  01c4 b600          	ld	a,_MT
+ 852  01c6 a101          	cp	a,#1
+ 853  01c8 260b          	jrne	L372
+ 855  01ca b605          	ld	a,_MT+5
+ 856  01cc a101          	cp	a,#1
+ 857  01ce 2605          	jrne	L372
+ 858                     ; 200 		Motor_Stop();
+ 860  01d0 cd0094        	call	_Motor_Stop
+ 862                     ; 201 		MT.status=MT_STOPPED;						//更新运行状态
+ 864  01d3 3f00          	clr	_MT
+ 865  01d5               L372:
+ 866                     ; 203 	if((MT.status==MT_RUNNING_BACKWARD)&&(MT.Sensor_OA_B==1))	//反向急停
+ 868  01d5 b600          	ld	a,_MT
+ 869  01d7 a111          	cp	a,#17
+ 870  01d9 260b          	jrne	L572
+ 872  01db b606          	ld	a,_MT+6
+ 873  01dd a101          	cp	a,#1
+ 874  01df 2605          	jrne	L572
+ 875                     ; 205 		Motor_Stop();
+ 877  01e1 cd0094        	call	_Motor_Stop
+ 879                     ; 206 		MT.status=MT_STOPPED;						//更新运行状态
+ 881  01e4 3f00          	clr	_MT
+ 882  01e6               L572:
+ 883                     ; 210 }
+ 886  01e6 81            	ret
+ 924                     ; 211 PT_THREAD(Alarm_Speaker(void))
+ 924                     ; 212 {
+ 925                     	switch	.text
+ 926  01e7               _Alarm_Speaker:
+ 928  01e7 88            	push	a
+ 929       00000001      OFST:	set	1
+ 932                     ; 213 	PT_BEGIN(&pt_Alarm_Speaker);
+ 936  01e8 be03          	ldw	x,_pt_Alarm_Speaker
+ 938                     ; 221 	GPIO_WriteHigh(ALARM_PORT,ALARM);
+ 939  01ea 5d            	tnzw	x
+ 940  01eb 270c          	jreq	L772
+ 941  01ed 1d00d8        	subw	x,#216
+ 942  01f0 270e          	jreq	L103
+ 943  01f2 1d0004        	subw	x,#4
+ 944  01f5 2723          	jreq	L303
+ 945  01f7 2034          	jra	L523
+ 946  01f9               L772:
+ 947                     ; 215 	pt_Alarm_Speaker_cnt=0;
+ 950  01f9 3f0b          	clr	_pt_Alarm_Speaker_cnt
+ 951                     ; 216 	PT_WAIT_UNTIL(&pt_Alarm_Speaker,pt_Alarm_Speaker_cnt>30);
+ 953  01fb ae00d8        	ldw	x,#216
+ 954  01fe bf03          	ldw	_pt_Alarm_Speaker,x
+ 955  0200               L103:
+ 959  0200 b60b          	ld	a,_pt_Alarm_Speaker_cnt
+ 960  0202 a11f          	cp	a,#31
+ 961  0204 2404          	jruge	L333
+ 964  0206 4f            	clr	a
+ 967  0207 5b01          	addw	sp,#1
+ 968  0209 81            	ret
+ 969  020a               L333:
+ 970                     ; 217 	GPIO_WriteLow(ALARM_PORT,ALARM);
+ 972  020a 4b10          	push	#16
+ 973  020c ae500f        	ldw	x,#20495
+ 974  020f cd0000        	call	_GPIO_WriteLow
+ 976  0212 84            	pop	a
+ 977                     ; 219 	pt_Alarm_Speaker_cnt=0;
+ 979  0213 3f0b          	clr	_pt_Alarm_Speaker_cnt
+ 980                     ; 220 	PT_WAIT_UNTIL(&pt_Alarm_Speaker,pt_Alarm_Speaker_cnt>50);
+ 982  0215 ae00dc        	ldw	x,#220
+ 983  0218 bf03          	ldw	_pt_Alarm_Speaker,x
+ 984  021a               L303:
+ 988  021a b60b          	ld	a,_pt_Alarm_Speaker_cnt
+ 989  021c a133          	cp	a,#51
+ 990  021e 2404          	jruge	L143
+ 993  0220 4f            	clr	a
+ 996  0221 5b01          	addw	sp,#1
+ 997  0223 81            	ret
+ 998  0224               L143:
+ 999                     ; 221 	GPIO_WriteHigh(ALARM_PORT,ALARM);
+1001  0224 4b10          	push	#16
+1002  0226 ae500f        	ldw	x,#20495
+1003  0229 cd0000        	call	_GPIO_WriteHigh
+1005  022c 84            	pop	a
+1006  022d               L523:
+1007                     ; 223 	PT_END(&pt_Alarm_Speaker);
+1012  022d 5f            	clrw	x
+1013  022e bf03          	ldw	_pt_Alarm_Speaker,x
+1017  0230 a602          	ld	a,#2
+1020  0232 5b01          	addw	sp,#1
+1021  0234 81            	ret
+1047                     ; 228 void Alarm(void)
+1047                     ; 229 {
+1048                     	switch	.text
+1049  0235               _Alarm:
+1053                     ; 230 	if(MT.status&0x01)	//if running
+1055  0235 b600          	ld	a,_MT
+1056  0237 a501          	bcp	a,#1
+1057  0239 2704          	jreq	L353
+1058                     ; 232 		Alarm_Speaker();
+1060  023b adaa          	call	_Alarm_Speaker
+1063  023d 2009          	jra	L553
+1064  023f               L353:
+1065                     ; 234 		GPIO_WriteHigh(ALARM_PORT,ALARM);
+1067  023f 4b10          	push	#16
+1068  0241 ae500f        	ldw	x,#20495
+1069  0244 cd0000        	call	_GPIO_WriteHigh
+1071  0247 84            	pop	a
+1072  0248               L553:
+1073                     ; 236 }
+1076  0248 81            	ret
+1330                     	xdef	_Alarm_Speaker
+1331                     	switch	.ubsct
+1332  0000               _pt_Alarm_Light_cnt:
+1333  0000 00            	ds.b	1
+1334                     	xdef	_pt_Alarm_Light_cnt
+1335  0001               _pt_Alarm_Light:
+1336  0001 0000          	ds.b	2
+1337                     	xdef	_pt_Alarm_Light
+1338  0003               _pt_Alarm_Speaker:
+1339  0003 0000          	ds.b	2
+1340                     	xdef	_pt_Alarm_Speaker
+1341  0005               _pt_Keyscan:
+1342  0005 0000          	ds.b	2
+1343                     	xdef	_pt_Keyscan
+1344                     	xdef	_Alarm
+1345                     	xdef	_MT_Control
+1346                     	xdef	_Key_Scan
+1347                     	xdef	_Sensor_OA_Scan
+1348                     	xdef	_Motor_Stop
+1349                     	xdef	_Motor_Start
+1350                     	xdef	_Motor_Init
+1351  0007               _Speed_Pulse_cnt:
+1352  0007 0000          	ds.b	2
+1353                     	xdef	_Speed_Pulse_cnt
+1354  0009               _Speed_Origin:
+1355  0009 0000          	ds.b	2
+1356                     	xdef	_Speed_Origin
+1357                     	xdef	_Speed_Pulse_Status
+1358  000b               _pt_Alarm_Speaker_cnt:
+1359  000b 00            	ds.b	1
+1360                     	xdef	_pt_Alarm_Speaker_cnt
+1361  000c               _pt_Keyscan_cnt:
+1362  000c 00            	ds.b	1
+1363                     	xdef	_pt_Keyscan_cnt
+1364                     	xdef	_MT
+1365                     	xref	_TIM1_CtrlPWMOutputs
+1366                     	xref	_TIM1_Cmd
+1367                     	xref	_GPIO_ReadInputPin
+1368                     	xref	_GPIO_WriteLow
+1369                     	xref	_GPIO_WriteHigh
+1370                     	xref	_GPIO_Init
+1390                     	end
