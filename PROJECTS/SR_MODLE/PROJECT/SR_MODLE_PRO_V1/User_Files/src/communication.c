@@ -21,6 +21,8 @@ NRF24L01:	{
 #define	IR_EXTI_PORT	EXTI_PORT_GPIOC
 
 volatile uint8_t IR_time_cnt;	//用于从TIMER1获取时间
+volatile	uint32_t IR_Code;	
+volatile uint8_t New_IR_Code_Flag;
 
 static void IR_Init(void){
 	//PORT init
@@ -45,4 +47,26 @@ void Comm_Init(void)
 		NRF24L01_Init();
 }
 
-
+//return:	0--success;	1--fail
+uint8_t IR_GetCode(uint8_t* ir_code)
+{
+	uint8_t a,b,c,d;
+	
+	if(New_IR_Code_Flag)
+	{
+		New_IR_Code_Flag=0;	//clear flag
+		
+		a=(uint8_t)(IR_Code>>24);
+		b=(uint8_t)((IR_Code>>16)%256);
+		c=(uint8_t)(IR_Code>>8);
+		d=(uint8_t)IR_Code;
+		
+		if(((a^b)==0xff)&&((c^d)==0xff))	//data valid
+		{
+			*ir_code=d;			
+			return 0;
+		}		
+	}
+	*ir_code=0;
+	return 1;		
+}

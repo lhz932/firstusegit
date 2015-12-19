@@ -138,11 +138,39 @@ INTERRUPT_HANDLER(EXTI_PORTC_IRQHandler, 5)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
-	
-	disableInterrupts();
-	
-	enableInterrupts();
-	
+	static uint8_t cnt;
+	uint8_t time;
+	time=IR_time_cnt;
+	IR_time_cnt=0;
+	//	1ms--10
+	//	9ms--90
+	//	4.5ms--45
+	//	13.5ms--135
+	//	1.125ms--11 or 12
+	//	2.25ms--22 or 23
+	if((time>(135-10))&&(time<(135+10)))
+	{
+		cnt=0;
+		IR_Code=0;
+	}
+	if(cnt<32)
+	{
+		if((time>(11-5))&&(time<(11+5)))	//0
+		{
+			if(cnt<31)	IR_Code<<=1;
+			cnt++;
+		}else if((time>(22-5))&&(time<(22+5)))
+		{
+			IR_Code|=1;
+			if(cnt<31)	IR_Code<<=1;
+			cnt++;
+		}
+	}
+	if(cnt==32)
+	{
+		New_IR_Code_Flag=1;	//set the flag
+		cnt=0;
+	}
 }
 
 /**
@@ -230,6 +258,7 @@ INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_BRK_IRQHandler, 11)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+	TIM1_ClearFlag(TIM1_FLAG_UPDATE);
 	IR_time_cnt++;
 	
 	

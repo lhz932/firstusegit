@@ -11,10 +11,17 @@ typedef enum
 
 typedef enum
 {
-	MT_STOPPED=0X00,
-	MT_RUNNING_FORWARD=0X01,
-	MT_RUNNING_BACKWARD=0X11
+	MT_STOPPED=0X01,
+	MT_RUNNING_FORWARD=0X02,
+	MT_RUNNING_BACKWARD=0X04
+	//MT_LASTTIME_FORWARD=0X08,	//停止前的运行状态
+	//MT_LASTTIME_BACKWARD=0X10	//停止前的运行状态
 }Motor_Status_Typedef;
+typedef enum
+{
+	MT_LAST_FORWARD=0X02,
+	MT_LAST_BACKWARD=0X04
+}Motor_Status_Lasttime_Typedef;
 
 typedef enum
 {
@@ -25,6 +32,7 @@ typedef enum
 
 typedef struct motor_para{
 	Motor_Status_Typedef 		status;				//电机运行状态
+	Motor_Status_Lasttime_Typedef last_status;	//电机上次运行状态
 	uint16_t		Disstance_Total_cnt;			//全程计数
 	uint16_t		Disstance_Now_cnt;				//当前计数
 	uint8_t			Sensor_OA_A;							//信号状态实时更新

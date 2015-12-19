@@ -92,14 +92,17 @@ void Motor_Init(void)
 	GPIO_Init(L298N_IN_PORT,L298N_IN1|L298N_IN2,GPIO_MODE_OUT_PP_LOW_SLOW);
 	GPIO_Init(MOTOR_PWM_PORT,MOTOR_PWM,GPIO_MODE_OUT_PP_LOW_SLOW);
 	
-	TIM1_Cmd(DISABLE);																			//stop计数器
-	TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
+	//TIM1_Cmd(DISABLE);																			//stop计数器
+	//TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
+	TIM1_CCxCmd(TIM1_CHANNEL_3,DISABLE);
 	
 	Obstacle_Avoidance_Sensor_Init();
 	Speed_Sensor_Init();
 	Key_Init();
 	Alarm_Init();
 	
+	MT.status=MT_STOPPED;
+	MT.last_status=MT_LAST_FORWARD;
 	
 	
 	
@@ -110,20 +113,38 @@ void Motor_Start(Motor_Direction_Typedef dir)
 	if(dir){
 		GPIO_WriteHigh(L298N_IN_PORT,L298N_IN1);
 		GPIO_WriteLow(L298N_IN_PORT,L298N_IN2);
-	}else{
+		
+		//MT.status|=MT_RUNNING_FORWARD|MT_LASTTIME_FORWARD;		//更新运行状态
+		//MT.status&=~(MT_RUNNING_BACKWARD|MT_LASTTIME_BACKWARD);
+		MT.status=MT_RUNNING_FORWARD;
+		}else{
 		GPIO_WriteHigh(L298N_IN_PORT,L298N_IN2);
 		GPIO_WriteLow(L298N_IN_PORT,L298N_IN1);
+		
+		//MT.status|=MT_RUNNING_BACKWARD|MT_LASTTIME_BACKWARD;		//更新运行状态
+		//MT.status&=~(MT_RUNNING_FORWARD|MT_LASTTIME_FORWARD);
+		MT.status=MT_RUNNING_BACKWARD;
 	}
 	
-	TIM1_Cmd(ENABLE);																			//使能计数器
-	TIM1_CtrlPWMOutputs(ENABLE);													// TIM1 Main Output Enable
+	//TIM1_Cmd(ENABLE);					//使能计数器
+	TIM1_CCxCmd(TIM1_CHANNEL_3,ENABLE);
+	//TIM1_CtrlPWMOutputs(ENABLE);													// TIM1 Main Output Enable
 }
 void Motor_Stop(void)
 {
-	TIM1_Cmd(DISABLE);																			//stop计数器
-	TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
+	//TIM1_Cmd(DISABLE);																			//stop计数器
+	//TIM1_CtrlPWMOutputs(DISABLE);														// TIM1 Main Output disable
+	TIM1_CCxCmd(TIM1_CHANNEL_3,DISABLE);
+	
 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN1);
 	GPIO_WriteLow(L298N_IN_PORT,L298N_IN2);
+	
+	if(MT.status==MT_RUNNING_FORWARD){
+		MT.last_status=MT_LAST_FORWARD;
+	}else if(MT.status==MT_RUNNING_BACKWARD){
+		MT.last_status=MT_LAST_BACKWARD;
+	}
+	MT.status=MT_STOPPED;	
 }
 //避障传感器检测
 //低电平有效
@@ -171,43 +192,7 @@ PT_THREAD(Key_Scan(void))
 
 
 /*--------------------------------------------------------------------*/
-void MT_Control(void)
-{
-	if(MT.Key_A&&(MT.Sensor_OA_A==0)){	//正向满足运行条件
-		MT.Key_A=0;	//清除按键指令	
-		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
-			Motor_Start(MOTOR_FORWARD);
-			MT.status=MT_RUNNING_FORWARD;		//更新运行状态
-		}else{														//运行状态则停止运行
-			Motor_Stop();
-			MT.status=MT_STOPPED;						//更新运行状态
-		}
-	}
-	
-	if(MT.Key_B&&(MT.Sensor_OA_B==0)){	//反向满足运行条件
-		MT.Key_B=0;	//清除按键指令	
-		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
-			Motor_Start(MOTOR_BACKWARD);
-			MT.status=MT_RUNNING_BACKWARD;		//更新运行状态
-		}else{														//运行状态则停止运行
-			Motor_Stop();
-			MT.status=MT_STOPPED;						//更新运行状态
-		}
-	}
-	
-	if((MT.status==MT_RUNNING_FORWARD)&&(MT.Sensor_OA_A==1))	//正向急停
-	{
-		Motor_Stop();
-		MT.status=MT_STOPPED;						//更新运行状态
-	}
-	if((MT.status==MT_RUNNING_BACKWARD)&&(MT.Sensor_OA_B==1))	//反向急停
-	{
-		Motor_Stop();
-		MT.status=MT_STOPPED;						//更新运行状态
-	}
-	
-	
-}
+
 PT_THREAD(Alarm_Speaker(void))
 {
 	PT_BEGIN(&pt_Alarm_Speaker);
@@ -225,9 +210,10 @@ PT_THREAD(Alarm_Speaker(void))
 }
 
 
+
 void Alarm(void)
 {
-	if(MT.status&0x01)	//if running
+	if((MT.status==MT_RUNNING_FORWARD)||(MT.status==MT_RUNNING_BACKWARD))	//if running
 	{
 		Alarm_Speaker();
 	}else{
@@ -235,4 +221,75 @@ void Alarm(void)
 	}
 }
 
+static void MT_Speed_Set(void)
+{
+	uint8_t code;
+	if(IR_GetCode(&code)==0){
+		switch(code){
+			case IR_0:	TIM1_SetCompare3(135);break;
+			case IR_1:	TIM1_SetCompare3(145);break;
+			case IR_2:	TIM1_SetCompare3(155);break;
+			case IR_3:	TIM1_SetCompare3(170);break;
+			case IR_4:	TIM1_SetCompare3(185);break;
+			case IR_5:	TIM1_SetCompare3(200);break;
+			case IR_PLAY_PAUSE:	if(MT.status==MT_STOPPED){
+														if(MT.last_status==MT_LAST_FORWARD){
+															Motor_Start(MOTOR_FORWARD);
+														}else if(MT.last_status==MT_LAST_BACKWARD){
+															Motor_Start(MOTOR_BACKWARD);
+														}
+													}else{
+														Motor_Stop();
+													}
+													break;
+			case IR_PREV:	if(MT.status==MT_STOPPED){
+											Motor_Start(MOTOR_BACKWARD);
+										}
+										break;
+			case IR_NEXT:	if(MT.status==MT_STOPPED){
+											Motor_Start(MOTOR_FORWARD);
+										}
+										break;
+			default:	break;
+		}
+	}
+}
 
+void MT_Control(void)
+{
+	MT_Speed_Set();
+	if(MT.Key_A&&(MT.Sensor_OA_A==0)){	//正向满足运行条件
+		MT.Key_A=0;	//清除按键指令	
+		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
+			Motor_Start(MOTOR_FORWARD);
+			//MT.status=MT_RUNNING_FORWARD;		//更新运行状态
+		}else{														//运行状态则停止运行
+			Motor_Stop();
+			//MT.status=MT_STOPPED;						//更新运行状态
+		}
+	}
+	
+	if(MT.Key_B&&(MT.Sensor_OA_B==0)){	//反向满足运行条件
+		MT.Key_B=0;	//清除按键指令	
+		if(MT.status==MT_STOPPED){				//停止状态可以直接启动
+			Motor_Start(MOTOR_BACKWARD);
+			//MT.status=MT_RUNNING_BACKWARD;		//更新运行状态
+		}else{														//运行状态则停止运行
+			Motor_Stop();
+			//MT.status=MT_STOPPED;						//更新运行状态
+		}
+	}
+	
+	if((MT.status==MT_RUNNING_FORWARD)&&(MT.Sensor_OA_A==1))	//正向急停
+	{
+		Motor_Stop();
+		//MT.status=MT_STOPPED;						//更新运行状态
+	}
+	if((MT.status==MT_RUNNING_BACKWARD)&&(MT.Sensor_OA_B==1))	//反向急停
+	{
+		Motor_Stop();
+		//MT.status=MT_STOPPED;						//更新运行状态
+	}
+	
+	
+}

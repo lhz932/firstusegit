@@ -1,60 +1,61 @@
    1                     ; C Compiler for STM8 (COSMIC Software)
    2                     ; Parser V4.11.4 - 12 Aug 2015
    3                     ; Generator (Limited) V4.4.3 - 13 Oct 2015
-  45                     ; 8 void Indicator_Init(void)
-  45                     ; 9 {
-  47                     	switch	.text
-  48  0000               _Indicator_Init:
-  52                     ; 10 	GPIO_Init(INDICATOR_PORT,INDICATOR_PIN,GPIO_MODE_OUT_PP_HIGH_SLOW);
-  54  0000 4bd0          	push	#208
-  55  0002 4b20          	push	#32
-  56  0004 ae5005        	ldw	x,#20485
-  57  0007 cd0000        	call	_GPIO_Init
-  59  000a 85            	popw	x
-  60                     ; 11 }
-  63  000b 81            	ret
-  66                     	switch	.ubsct
-  67  0000               L12_status:
-  68  0000 00            	ds.b	1
- 103                     ; 14 void Indicator_Running(void)
- 103                     ; 15 {
- 104                     	switch	.text
- 105  000c               _Indicator_Running:
- 109                     ; 17 	if(Indcator_cnt>19){		
- 111  000c b601          	ld	a,_Indcator_cnt
- 112  000e a114          	cp	a,#20
- 113  0010 2520          	jrult	L34
- 114                     ; 18 		Indcator_cnt=0;
- 116  0012 3f01          	clr	_Indcator_cnt
- 117                     ; 19 		if(status==0){
- 119  0014 3d00          	tnz	L12_status
- 120  0016 260f          	jrne	L54
- 121                     ; 20 			GPIO_WriteLow(INDICATOR_PORT,INDICATOR_PIN);	//µãÁÁ
- 123  0018 4b20          	push	#32
- 124  001a ae5005        	ldw	x,#20485
- 125  001d cd0000        	call	_GPIO_WriteLow
- 127  0020 84            	pop	a
- 128                     ; 21 			status=1;
- 130  0021 35010000      	mov	L12_status,#1
- 132  0025 200b          	jra	L34
- 133  0027               L54:
- 134                     ; 24 			GPIO_WriteHigh(INDICATOR_PORT,INDICATOR_PIN);	//Ï¨Ãð
- 136  0027 4b20          	push	#32
- 137  0029 ae5005        	ldw	x,#20485
- 138  002c cd0000        	call	_GPIO_WriteHigh
- 140  002f 84            	pop	a
- 141                     ; 25 			status=0;
- 143  0030 3f00          	clr	L12_status
- 144  0032               L34:
- 145                     ; 29 }
- 148  0032 81            	ret
- 172                     	xdef	_Indicator_Running
- 173                     	xdef	_Indicator_Init
- 174                     	switch	.ubsct
- 175  0001               _Indcator_cnt:
- 176  0001 00            	ds.b	1
- 177                     	xdef	_Indcator_cnt
- 178                     	xref	_GPIO_WriteLow
- 179                     	xref	_GPIO_WriteHigh
- 180                     	xref	_GPIO_Init
- 200                     	end
+   4                     ; Optimizer V4.4.3 - 13 Oct 2015
+  50                     ; 8 void Indicator_Init(void)
+  50                     ; 9 {
+  52                     .text:	section	.text,new
+  53  0000               _Indicator_Init:
+  57                     ; 10 	GPIO_Init(INDICATOR_PORT,INDICATOR_PIN,GPIO_MODE_OUT_PP_HIGH_SLOW);
+  59  0000 4bd0          	push	#208
+  60  0002 4b20          	push	#32
+  61  0004 ae5005        	ldw	x,#20485
+  62  0007 cd0000        	call	_GPIO_Init
+  64  000a 85            	popw	x
+  65                     ; 11 }
+  68  000b 81            	ret	
+  71                     	switch	.ubsct
+  72  0000               L12_status:
+  73  0000 00            	ds.b	1
+ 108                     ; 14 void Indicator_Running(void)
+ 108                     ; 15 {
+ 109                     .text:	section	.text,new
+ 110  0000               _Indicator_Running:
+ 114                     ; 17 	if(Indcator_cnt>19){		
+ 116  0000 b601          	ld	a,_Indcator_cnt
+ 117  0002 a114          	cp	a,#20
+ 118  0004 251f          	jrult	L34
+ 119                     ; 18 		Indcator_cnt=0;
+ 121  0006 3f01          	clr	_Indcator_cnt
+ 122                     ; 19 		if(status==0){
+ 124  0008 b600          	ld	a,L12_status
+ 125  000a 260e          	jrne	L54
+ 126                     ; 20 			GPIO_WriteLow(INDICATOR_PORT,INDICATOR_PIN);	//µãÁÁ
+ 128  000c 4b20          	push	#32
+ 129  000e ae5005        	ldw	x,#20485
+ 130  0011 cd0000        	call	_GPIO_WriteLow
+ 132  0014 35010000      	mov	L12_status,#1
+ 133                     ; 21 			status=1;
+ 136  0018 200a          	jp	LC001
+ 137  001a               L54:
+ 138                     ; 24 			GPIO_WriteHigh(INDICATOR_PORT,INDICATOR_PIN);	//Ï¨Ãð
+ 140  001a 4b20          	push	#32
+ 141  001c ae5005        	ldw	x,#20485
+ 142  001f cd0000        	call	_GPIO_WriteHigh
+ 144  0022 3f00          	clr	L12_status
+ 145  0024               LC001:
+ 146  0024 84            	pop	a
+ 147                     ; 25 			status=0;
+ 149  0025               L34:
+ 150                     ; 29 }
+ 153  0025 81            	ret	
+ 177                     	xdef	_Indicator_Running
+ 178                     	xdef	_Indicator_Init
+ 179                     	switch	.ubsct
+ 180  0001               _Indcator_cnt:
+ 181  0001 00            	ds.b	1
+ 182                     	xdef	_Indcator_cnt
+ 183                     	xref	_GPIO_WriteLow
+ 184                     	xref	_GPIO_WriteHigh
+ 185                     	xref	_GPIO_Init
+ 205                     	end

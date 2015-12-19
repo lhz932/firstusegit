@@ -16,7 +16,7 @@
 
 volatile uint8_t Timebase_cnt=0;
 uint8_t TCnt_10ms;
-volatile uint8_t Timer1_Period=150;
+volatile uint8_t Timer1_Period=140;
 
 
 void 	GPIO_Config_SystemOn(void);
@@ -63,7 +63,7 @@ void TimeCounters_10ms(void)
 }
 
 main()
-{
+{	
 	GPIO_Config_SystemOn();
 	CLK_Config();	//Configure the Fcpu to 8MHz,Fmaster=8MHz	
 	Timer_Config();
@@ -110,7 +110,7 @@ void 	Timer_Config(void)
 											200,																//设置输出频率 20KHZ
 											3);																	//重复计数器，每两个周期产生一次更新，频率为10KHZ。此功能用于红外通讯模块
 	TIM1_OC3Init(	TIM1_OCMODE_PWM2,													//TIM1_CNT<TIM1_CCR1时为无效电平
-								TIM1_OUTPUTSTATE_ENABLE, 									//OC3信号输出到引脚
+								TIM1_OUTPUTSTATE_DISABLE, 									//OC3信号输出到引脚(这里先禁用输出)
 								TIM1_OUTPUTNSTATE_DISABLE,								//
 								Timer1_Period,														//设置占空比
 								TIM1_OCPOLARITY_LOW,											//OC1高电平有效
@@ -118,8 +118,8 @@ void 	Timer_Config(void)
 								TIM1_OCIDLESTATE_RESET,										//空闲状态OC1=0							
 								
 								TIM1_OCNIDLESTATE_RESET);
-	 //TIM1_Cmd(ENABLE);																			//使能计数器
-	 //TIM1_CtrlPWMOutputs(ENABLE);														// TIM1 Main Output Enable
+	 TIM1_Cmd(ENABLE);																			//使能计数器
+	 TIM1_CtrlPWMOutputs(ENABLE);														// TIM1 Main Output Enable
 
 	/*Timer2 config*/
 	TIM2_DeInit();
