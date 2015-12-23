@@ -12,6 +12,7 @@ stm8s_it.h
 ..\user_files\src\communication.c
 ..\user_files\src\indicator_light.c
 ..\user_files\src\motor.c
+..\user_files\src\pid.c
 ..\..\..\..\..\..\..\..\program files (x86)\cosmic\32k_compilers\cxstm8\hstm8\mods0.h
 ..\stm8s_stdperiph_driver\inc\stm8s.h
 ..\stm8s_stdperiph_driver\inc\stm8s_clk.h
@@ -25,5 +26,6 @@ stm8s_it.h
 ..\user_files\inc\lc-switch.h
 ..\user_files\inc\lc.h
 ..\user_files\inc\motor.h
+..\user_files\inc\pid.h
 ..\user_files\inc\pt.h
 main.h

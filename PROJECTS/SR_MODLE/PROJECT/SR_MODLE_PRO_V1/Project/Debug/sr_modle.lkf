@@ -61,6 +61,7 @@ Debug\stm8s_tim4.o
 Debug\communication.o
 Debug\indicator_light.o
 Debug\motor.o
+Debug\pid.o
 #<END OBJECT_FILES>
 
 

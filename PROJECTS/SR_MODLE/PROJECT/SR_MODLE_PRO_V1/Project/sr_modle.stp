@@ -463,6 +463,11 @@ String.6.0=2015,11,26,20,7,19
 [Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_clk.c]
 ElemType=File
 PathName=..\stm8s_stdperiph_driver\src\stm8s_clk.c
+Next=Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_exti.c
+
+[Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_exti.c]
+ElemType=File
+PathName=..\stm8s_stdperiph_driver\src\stm8s_exti.c
 Next=Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_gpio.c
 
 [Root.StdPeriph_Driver...\stm8s_stdperiph_driver\src\stm8s_gpio.c]
@@ -487,7 +492,7 @@ PathName=..\stm8s_stdperiph_driver\src\stm8s_tim4.c
 [Root.User files]
 ElemType=Folder
 PathName=User files
-Child=Root.User files...\user_files\src\indicator_light.c
+Child=Root.User files...\user_files\src\communication.c
 Config.0=Root.User files.Config.0
 Config.1=Root.User files.Config.1
 
@@ -557,6 +562,11 @@ String.4.0=
 String.5.0=
 String.6.0=2015,11,26,20,7,19
 
+[Root.User files...\user_files\src\communication.c]
+ElemType=File
+PathName=..\user_files\src\communication.c
+Next=Root.User files...\user_files\src\indicator_light.c
+
 [Root.User files...\user_files\src\indicator_light.c]
 ElemType=File
 PathName=..\user_files\src\indicator_light.c
@@ -565,3 +575,8 @@ Next=Root.User files...\user_files\src\motor.c
 [Root.User files...\user_files\src\motor.c]
 ElemType=File
 PathName=..\user_files\src\motor.c
+Next=Root.User files...\user_files\src\pid.c
+
+[Root.User files...\user_files\src\pid.c]
+ElemType=File
+PathName=..\user_files\src\pid.c

@@ -13,10 +13,11 @@
 #include	"indicator_light.h"
 #include	"motor.h"
 #include	"communication.h"
+#include	"pid.h"
 
 volatile uint8_t Timebase_cnt=0;
 uint8_t TCnt_10ms;
-volatile uint8_t Timer1_Period=140;
+volatile uint8_t Timer1_Pulse=140;
 
 
 void 	GPIO_Config_SystemOn(void);
@@ -47,6 +48,8 @@ void TimeCounters_1ms(void)
 
 void TimeCounters_10ms(void)
 {
+	static uint8_t i;	
+	
 	if(TCnt_10ms>9)
 	{
 		TCnt_10ms-=10;
@@ -58,6 +61,12 @@ void TimeCounters_10ms(void)
 		//write your app
 		Sensor_OA_Scan();
 		MT_Control();
+		
+		i++;
+		if(i>20){
+			PID_set();
+			i=0;
+		}
 	}
 	
 }
@@ -112,8 +121,8 @@ void 	Timer_Config(void)
 	TIM1_OC3Init(	TIM1_OCMODE_PWM2,													//TIM1_CNT<TIM1_CCR1时为无效电平
 								TIM1_OUTPUTSTATE_DISABLE, 									//OC3信号输出到引脚(这里先禁用输出)
 								TIM1_OUTPUTNSTATE_DISABLE,								//
-								Timer1_Period,														//设置占空比
-								TIM1_OCPOLARITY_LOW,											//OC1高电平有效
+								Timer1_Pulse,														//设置占空比
+								TIM1_OCPOLARITY_LOW,											//OC1低电平有效
 								TIM1_OCNPOLARITY_LOW,
 								TIM1_OCIDLESTATE_RESET,										//空闲状态OC1=0							
 								

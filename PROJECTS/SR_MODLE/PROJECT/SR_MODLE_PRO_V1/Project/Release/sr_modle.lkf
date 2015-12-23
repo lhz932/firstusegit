@@ -61,6 +61,7 @@ Release\stm8s_tim4.o
 Release\communication.o
 Release\indicator_light.o
 Release\motor.o
+Release\pid.o
 #<END OBJECT_FILES>
 
 
